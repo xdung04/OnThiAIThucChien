@@ -1,0 +1,63 @@
+export default {
+  id: 'day3-statistics',
+  title: 'Quiz Thống kê cơ bản',
+  questions: [
+    {
+      id: 'st1',
+      type: 'output-prediction',
+      topic: 'Thống kê',
+      question: 'Trung bình của [10, 20, 30] là gì?',
+      options: ['20', '30', '10', '60'],
+      answerIndex: 0,
+      explanation: 'mean = (10+20+30)/3 = 60/3 = 20.',
+    },
+    {
+      id: 'st2',
+      type: 'output-prediction',
+      topic: 'Thống kê',
+      question: 'Trung vị của [3, 1, 2] là gì?',
+      options: ['1', '2', '3', '6'],
+      answerIndex: 1,
+      explanation: 'Sắp xếp: [1, 2, 3]. Giá trị giữa là 2.',
+    },
+    {
+      id: 'st3',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Mode của [4, 4, 5, 6, 6, 6, 7] là gì?',
+      options: ['4', '5', '6', '7'],
+      answerIndex: 2,
+      explanation: '6 xuất hiện 3 lần, nhiều hơn mọi giá trị khác.',
+    },
+    {
+      id: 'st4',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Độ lệch chuẩn đo lường điều gì?',
+      options: ['Giá trị xuất hiện nhiều nhất', 'Mức độ phân tán của dữ liệu', 'Giá trị giữa', 'Tổng'],
+      answerIndex: 1,
+      explanation: 'Độ lệch chuẩn đo mức độ phân tán của dữ liệu quanh trung bình.',
+    },
+    {
+      id: 'st5',
+      type: 'output-prediction',
+      topic: 'Thống kê',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+data = np.array([2, 4, 6])
+print(data.var())`,
+      options: ['2.0', '2.67', '4.0', '12.0'],
+      answerIndex: 1,
+      explanation: 'mean = 4. Phương sai = ((2-4)² + (4-4)² + (6-4)²)/3 = (4+0+4)/3 ≈ 2.67.',
+    },
+    {
+      id: 'st6',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Nếu thêm một outlier rất lớn vào tập dữ liệu, cái nào thay đổi nhiều nhất?',
+      options: ['Trung vị', 'Mode', 'Trung bình', 'Không cái nào'],
+      answerIndex: 2,
+      explanation: 'Trung bình bị kéo bởi giá trị cực đoan; trung vị bền vững hơn.',
+    },
+  ],
+}

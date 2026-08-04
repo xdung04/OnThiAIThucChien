@@ -1,0 +1,42 @@
+export default {
+  id: 'day5-ai-ml-dl',
+  title: 'Quiz AI vs ML vs Học sâu',
+  questions: [
+    {
+      id: 'ai1',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Cái nào là tập con của Học máy (Machine Learning)?',
+      options: ['AI', 'Deep Learning', 'Khoa học dữ liệu', 'Thống kê'],
+      answerIndex: 1,
+      explanation: 'Deep Learning là tập con của Machine Learning.',
+    },
+    {
+      id: 'ai2',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Học máy (Machine Learning) học từ đâu?',
+      options: ['Các quy tắc viết bằng tay', 'Dữ liệu', 'Đoán ngẫu nhiên', 'Không học gì'],
+      answerIndex: 1,
+      explanation: 'ML học các mẫu từ dữ liệu.',
+    },
+    {
+      id: 'ai3',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Thứ bậc nào đúng?',
+      options: ['DL ⊃ ML ⊃ AI', 'AI ⊃ ML ⊃ DL', 'ML ⊃ AI ⊃ DL', 'AI ⊃ DL ⊃ ML'],
+      answerIndex: 1,
+      explanation: 'AI là rộng nhất, ML nằm trong AI, và Deep Learning nằm trong ML.',
+    },
+    {
+      id: 'ai4',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Mô hình nhận dạng ảnh dùng nhiều lớp là ví dụ của…',
+      options: ['Chỉ AI', 'Chỉ Machine Learning', 'Deep Learning', 'Không cái nào'],
+      answerIndex: 2,
+      explanation: 'Nhận dạng ảnh với nhiều lớp thường là Deep Learning.',
+    },
+  ],
+}

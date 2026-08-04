@@ -1,0 +1,718 @@
+export default {
+  id: 'mock-exam-1',
+  title: 'Đề thi thử 1',
+  description: 'Đề luyện thi đầy đủ · 60 câu · 90 phút',
+  timeMinutes: 90,
+  questions: [
+    // ===== Module A (15) — Toán & Tư duy định lượng =====
+    {
+      id: 'e1a1',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[1, 0], [0, 1]])
+print(np.dot(A, B))`,
+      options: ['[[1 2] [3 4]]', '[[1 0] [0 1]]', '[[2 1] [4 3]]', '[[0 0] [0 0]]'],
+      answerIndex: 0,
+      explanation: 'Nhân với ma trận đơn vị thì ma trận A không đổi.',
+    },
+    {
+      id: 'e1a2',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[1, 2, 3], [4, 5, 6]])
+print(A.T.shape)`,
+      options: ['(2, 3)', '(3, 2)', '(6,)', '(1, 6)'],
+      answerIndex: 1,
+      explanation: 'Chuyển vị của ma trận (2,3) là (3,2).',
+    },
+    {
+      id: 'e1a3',
+      module: 'A',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Trung bình cộng của [4, 8, 12] là bao nhiêu?',
+      options: ['6', '8', '10', '24'],
+      answerIndex: 1,
+      explanation: 'Trung bình = (4+8+12)/3 = 24/3 = 8.',
+    },
+    {
+      id: 'e1a4',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Trị riêng',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[2, 0], [0, 3]])
+eigenvalues, eigenvectors = np.linalg.eig(A)
+print(eigenvalues[1])`,
+      options: ['2.0', '3.0', '0.0', '1.0'],
+      answerIndex: 1,
+      explanation: 'eigenvalues[1] là trị riêng thứ hai = 3.0.',
+    },
+    {
+      id: 'e1a5',
+      module: 'A',
+      type: 'multiple-choice',
+      topic: 'Ma trận nghịch đảo',
+      question: 'A · A⁻¹ bằng ma trận nào?',
+      options: ['Ma trận không', 'Ma trận đơn vị', 'Chính A', 'Chính A⁻¹'],
+      answerIndex: 1,
+      explanation: 'Nhân một ma trận với nghịch đảo của nó sẽ cho ma trận đơn vị.',
+    },
+    {
+      id: 'e1a6',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Vector',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+u = np.array([1, 2, 3])
+v = np.array([4, 5, 6])
+print(np.dot(u, v))`,
+      options: ['32', '24', '15', '21'],
+      answerIndex: 0,
+      explanation: 'Tích vô hướng = 1*4 + 2*5 + 3*6 = 4+10+18 = 32.',
+    },
+    {
+      id: 'e1a7',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[10, 20], [30, 40]])
+print(A + B)`,
+      options: ['[[11 22] [33 44]]', '[[10 40] [90 160]]', '[[1 2] [3 4]]', '[[11 20] [30 44]]'],
+      answerIndex: 0,
+      explanation: 'Phép cộng ma trận cộng từng phần tử tương ứng.',
+    },
+    {
+      id: 'e1a8',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+print(np.dot(A, B)[1, 0])`,
+      options: ['19', '22', '43', '50'],
+      answerIndex: 2,
+      explanation: 'np.dot(A,B) = [[19,22],[43,50]]. Phần tử [1,0] = 43.',
+    },
+    {
+      id: 'e1a9',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Ma trận nghịch đảo',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[2, 0], [0, 2]])
+print(np.linalg.inv(A))`,
+      options: ['[[0.5 0. ] [0.  0.5]]', '[[2 0] [0 2]]', '[[1 0] [0 1]]', '[[0 2] [2 0]]'],
+      answerIndex: 0,
+      explanation: 'Nghịch đảo của 2·ma trận đơn vị là 0.5·ma trận đơn vị.',
+    },
+    {
+      id: 'e1a10',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Trị riêng',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[2, 0], [0, 3]])
+eigenvalues, eigenvectors = np.linalg.eig(A)
+print(eigenvectors[:, 0])`,
+      options: ['[1. 0.]', '[0. 1.]', '[2. 3.]', '[0. 0.]'],
+      answerIndex: 0,
+      explanation: 'eigenvectors[:, 0] là cột đầu tiên = [1. 0.].',
+    },
+    {
+      id: 'e1a11',
+      module: 'A',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Trung vị của [1, 3, 5, 7, 9] là bao nhiêu?',
+      options: ['3', '5', '7', '25'],
+      answerIndex: 1,
+      explanation: 'Giá trị giữa của 5 số đã sắp xếp là 5.',
+    },
+    {
+      id: 'e1a12',
+      module: 'A',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Mode (giá trị xuất hiện nhiều nhất) của [1, 2, 2, 3, 3, 3, 4] là gì?',
+      options: ['2', '3', '4', '1'],
+      answerIndex: 1,
+      explanation: 'Số 3 xuất hiện nhiều nhất (3 lần).',
+    },
+    {
+      id: 'e1a13',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Vector',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([1, 2, 3, 4, 5])
+print(a.shape)`,
+      options: ['(1, 5)', '(5,)', '(5, 1)', '5'],
+      answerIndex: 1,
+      explanation: 'Mảng 1 chiều 5 phần tử có shape là (5,).',
+    },
+    {
+      id: 'e1a14',
+      module: 'A',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[1, 2], [3, 4]])
+print(A.T[1, 0])`,
+      options: ['2', '3', '1', '4'],
+      answerIndex: 0,
+      explanation: 'A.T = [[1,3],[2,4]]. Phần tử [1,0] = 2.',
+    },
+    {
+      id: 'e1a15',
+      module: 'A',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Tính phương sai (variance) của [2, 4, 6]:',
+      options: ['2', '8/3 ≈ 2.67', '4', '16'],
+      answerIndex: 1,
+      explanation: 'Trung bình = 4. Độ lệch: -2, 0, 2 → bình phương: 4, 0, 4 → (4+0+4)/3 = 8/3.',
+    },
+    // ===== Module B (21) — Lập trình & Xử lý dữ liệu =====
+    {
+      id: 'e1b1',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Python',
+      question: 'Kết quả là gì?',
+      code: `x = 9
+y = 2
+print(x // y)`,
+      options: ['4.5', '4', '1', '18'],
+      answerIndex: 1,
+      explanation: '9 // 2 = 4 (phép chia lấy phần nguyên).',
+    },
+    {
+      id: 'e1b2',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Python',
+      question: 'Kết quả là gì?',
+      code: `for i in range(2):
+    print(i)`,
+      options: ['0 1', '1 2', '0 1 2', '2 1'],
+      answerIndex: 0,
+      explanation: 'range(2) cho 0 và 1.',
+    },
+    {
+      id: 'e1b3',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'NumPy',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([3, 1, 4, 2])
+print(a.argmax())`,
+      options: ['4', '2', '3', '1'],
+      answerIndex: 1,
+      explanation: 'argmax trả về vị trí (index) của giá trị lớn nhất. Số 4 ở index 2.',
+    },
+    {
+      id: 'e1b4',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'NumPy',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+print(np.dot(a, b))`,
+      options: ['32', '24', '18', '21'],
+      answerIndex: 0,
+      explanation: 'np.dot = 1*4 + 2*5 + 3*6 = 4+10+18 = 32.',
+    },
+    {
+      id: 'e1b5',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Pandas',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
+print(df.shape)`,
+      options: ['(2, 3)', '(3, 2)', '(3, 3)', '(2, 2)'],
+      answerIndex: 1,
+      explanation: 'df có 3 hàng, 2 cột → shape (3, 2).',
+    },
+    {
+      id: 'e1b6',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Pandas',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
+print(df.iloc[2]["name"])`,
+      options: ['Minh', 'Lan', 'Huy', 'Error'],
+      answerIndex: 2,
+      explanation: 'iloc[2] là hàng ở vị trí 2 (Huy).',
+    },
+    {
+      id: 'e1b7',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Xử lý dữ liệu',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
+print(df[df["age"] > 24].shape)`,
+      options: ['(3, 2)', '(2, 2)', '(1, 2)', '(2, 1)'],
+      answerIndex: 1,
+      explanation: 'Lọc giữ lại tuổi > 24: Minh (25), Lan (30) → 2 hàng.',
+    },
+    {
+      id: 'e1b8',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Python',
+      question: 'Kết quả là gì?',
+      code: `fruits = ["apple", "banana", "cherry"]
+print(fruits[0])`,
+      options: ['apple', 'banana', 'cherry', 'Error'],
+      answerIndex: 0,
+      explanation: 'Chỉ số bắt đầu từ 0, nên fruits[0] = "apple".',
+    },
+    {
+      id: 'e1b9',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Python',
+      question: 'Kết quả là gì?',
+      code: `score = 75
+if score >= 60:
+    print("Pass")
+else:
+    print("Fail")`,
+      options: ['Pass', 'Fail', 'Error', 'Không in gì'],
+      answerIndex: 0,
+      explanation: '75 >= 60 nên nhánh if chạy, in "Pass".',
+    },
+    {
+      id: 'e1b10',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'NumPy',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([10, 20, 30, 40])
+print(a[1:3])`,
+      options: ['[10 20]', '[20 30]', '[30 40]', '[10 20 30]'],
+      answerIndex: 1,
+      explanation: 'a[1:3] lấy các phần tử từ index 1 đến 2 → [20 30].',
+    },
+    {
+      id: 'e1b11',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'NumPy',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([1, 2, 3, 4, 5, 6])
+b = a.reshape(2, 3)
+print(b[1, 2])`,
+      options: ['3', '4', '5', '6'],
+      answerIndex: 3,
+      explanation: 'Sau reshape, b[1,2] = 6 (hàng 1, cột 2).',
+    },
+
+    {
+      id: 'e1b12',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Pandas',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"city": ["HN", "HCM", "HN"], "sales": [10, 20, 30]})
+print(df.groupby("city")["sales"].sum())`,
+      options: ['HN 40, HCM 20', 'HN 30, HCM 20', 'HN 10, HCM 20', 'HN 20, HCM 30'],
+      answerIndex: 0,
+      explanation: 'HN = 10 + 30 = 40. HCM = 20.',
+    },
+    {
+      id: 'e1b13',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Xử lý dữ liệu',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"name": ["Minh", "Minh", "Lan"], "age": [25, 25, 30]})
+print(df.drop_duplicates().shape)`,
+      options: ['(3, 2)', '(2, 2)', '(1, 2)', '(2, 1)'],
+      answerIndex: 1,
+      explanation: 'drop_duplicates() bỏ hàng Minh trùng → còn 2 hàng.',
+    },
+    {
+      id: 'e1b14',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Python',
+      question: 'Kết quả là gì?',
+      code: `x = 7
+y = 2
+print(x % y)`,
+      options: ['3.5', '3', '1', '14'],
+      answerIndex: 2,
+      explanation: '7 % 2 = 1 (phần dư).',
+    },
+    {
+      id: 'e1b15',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Python',
+      question: 'Kết quả là gì?',
+      code: `def add(a, b):
+    return a + b
+
+print(add(3, 4))`,
+      options: ['34', '7', '12', 'Error'],
+      answerIndex: 1,
+      explanation: 'Hàm trả về 3 + 4 = 7.',
+    },
+    {
+      id: 'e1b16',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'NumPy',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([[1, 2], [3, 4]])
+print(a[0, 1])`,
+      options: ['1', '2', '3', '4'],
+      answerIndex: 1,
+      explanation: 'a[0,1] là hàng 0, cột 1 = 2.',
+    },
+    {
+      id: 'e1b17',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'NumPy',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+a = np.array([4, 8, 12])
+print(a.mean())`,
+      options: ['4', '8', '12', '24'],
+      answerIndex: 1,
+      explanation: 'mean = (4+8+12)/3 = 8.',
+    },
+    {
+      id: 'e1b18',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Pandas',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
+print(df.sort_values("age").iloc[0]["name"])`,
+      options: ['Minh', 'Lan', 'Huy', 'Error'],
+      answerIndex: 2,
+      explanation: 'Sắp xếp tuổi tăng dần: 22 (Huy) đứng đầu → tên "Huy".',
+    },
+    {
+      id: 'e1b19',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Xử lý dữ liệu',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"x": [1, None, 3]})
+print(df.isna().sum().sum())`,
+      options: ['0', '1', '2', '3'],
+      answerIndex: 1,
+      explanation: 'Có 1 giá trị None (NaN) → đếm được 1.',
+    },
+    {
+      id: 'e1b20',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Xử lý dữ liệu',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+df = pd.DataFrame({"city": ["HN", "HCM", "HN"]})
+print(df["city"].value_counts().loc["HN"])`,
+      options: ['1', '2', '3', 'Error'],
+      answerIndex: 1,
+      explanation: 'value_counts đếm số lần mỗi thành phố. HN xuất hiện 2 lần.',
+    },
+    {
+      id: 'e1b21',
+      module: 'B',
+      type: 'output-prediction',
+      topic: 'Pandas',
+      question: 'Kết quả là gì?',
+      code: `import pandas as pd
+s = pd.Series([1, 2, 3, 4])
+print(s.iloc[2])`,
+      options: ['1', '2', '3', '4'],
+      answerIndex: 2,
+      explanation: 'iloc[2] lấy phần tử vị trí 2 của Series = 3.',
+    },
+
+    // ===== Module C (15) — AI Knowledge & Product Thinking =====
+    {
+      id: 'e1c1',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Khái niệm nào rộng nhất?',
+      options: ['Học sâu (Deep Learning)', 'Học máy (Machine Learning)', 'AI', 'Khoa học dữ liệu'],
+      answerIndex: 2,
+      explanation: 'AI là khái niệm rộng nhất; ML và DL là tập con của nó.',
+    },
+    {
+      id: 'e1c2',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'Hồi quy tuyến tính',
+      question: 'Hồi quy tuyến tính dự đoán điều gì?',
+      options: ['Một nhãn (category)', 'Một số liên tục', 'Một xác suất', 'Một ma trận'],
+      answerIndex: 1,
+      explanation: 'Hồi quy tuyến tính dự đoán một số liên tục.',
+    },
+    {
+      id: 'e1c3',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'Hồi quy logistic',
+      question: 'Hồi quy logistic đầu ra giá trị gì?',
+      options: ['Một số liên tục', 'Một xác suất trong khoảng 0–1', 'Một ma trận', 'Một danh sách'],
+      answerIndex: 1,
+      explanation: 'Hồi quy logistic đầu ra xác suất từ 0 đến 1.',
+    },
+    {
+      id: 'e1c4',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'Quy trình ML',
+      question: 'Mô hình chạy rất tốt trên dữ liệu huấn luyện nhưng kém trên dữ liệu mới. Đây là…',
+      options: ['Underfitting (chưa đủ khớp)', 'Overfitting (quá khớp)', 'Bình thường', 'Phân loại'],
+      answerIndex: 1,
+      explanation: 'Overfitting là khi mô hình không khái quát tốt trên dữ liệu mới.',
+    },
+    {
+      id: 'e1c5',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'MVP',
+      question: 'Mục đích của một MVP là gì?',
+      options: ['Xây dựng sản phẩm hoàn chỉnh', 'Kiểm thử ý tưởng cốt lõi nhanh và rẻ', 'Kiếm tiền ngay lập tức', 'Thêm thật nhiều tính năng'],
+      answerIndex: 1,
+      explanation: 'MVP dùng để kiểm thử ý tưởng cốt lõi nhanh và rẻ.',
+    },
+    {
+      id: 'e1c6',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Học máy (ML) học từ đâu?',
+      options: ['Các quy tắc viết bằng tay', 'Dữ liệu', 'Đoán ngẫu nhiên', 'Không học gì'],
+      answerIndex: 1,
+      explanation: 'ML học các mẫu từ dữ liệu.',
+    },
+    {
+      id: 'e1c7',
+      module: 'C',
+      type: 'output-prediction',
+      topic: 'Hồi quy tuyến tính',
+      question: 'Với y = 100*size + 50000, giá khi size = 120 là bao nhiêu?',
+      options: ['62000', '12000', '50000', '17000'],
+      answerIndex: 0,
+      explanation: 'y = 100*120 + 50000 = 62000.',
+    },
+    {
+      id: 'e1c8',
+      module: 'C',
+      type: 'output-prediction',
+      topic: 'Hồi quy logistic',
+      question: 'Mô hình đầu ra xác suất = 0.85. Với ngưỡng 0.5, dự đoán là gì?',
+      options: ['Nhóm 0', 'Nhóm 1', 'Không xác định', '0.85'],
+      answerIndex: 1,
+      explanation: '0.85 >= 0.5 nên dự đoán Nhóm 1.',
+    },
+    {
+      id: 'e1c9',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'Quy trình ML',
+      question: 'Vì sao ta chia dữ liệu thành train và test?',
+      options: ['Để dữ liệu to hơn', 'Để kiểm thử trên dữ liệu chưa thấy', 'Để bỏ trùng lặp', 'Để sắp xếp dữ liệu'],
+      answerIndex: 1,
+      explanation: 'Tập test dùng để kiểm tra hiệu quả trên dữ liệu chưa thấy.',
+    },
+    {
+      id: 'e1c10',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'MVP',
+      question: 'MVP nên gồm những tính năng nào?',
+      options: ['Mọi tính năng có thể', 'Chỉ những tính năng cốt lõi', 'Chỉ tính năng đắt tiền', 'Không tính năng nào'],
+      answerIndex: 1,
+      explanation: 'MVP chỉ gồm những tính năng cốt lõi giải quyết vấn đề chính.',
+    },
+    {
+      id: 'e1c11',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'AI vs ML vs DL',
+      question: 'Cái nào là tập con của Học máy (Machine Learning)?',
+      options: ['AI', 'Deep Learning (Học sâu)', 'Khoa học dữ liệu', 'Thống kê'],
+      answerIndex: 1,
+      explanation: 'Deep Learning là tập con của ML.',
+    },
+    {
+      id: 'e1c12',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'Hồi quy tuyến tính',
+      question: 'Trong công thức y = mx + b, b thể hiện điều gì?',
+      options: ['Hệ số góc', 'Hệ số chặn (intercept)', 'Giá trị đầu ra', 'Dữ liệu'],
+      answerIndex: 1,
+      explanation: 'b là hệ số chặn — nơi đường thẳng cắt trục y.',
+    },
+    {
+      id: 'e1c13',
+      module: 'C',
+      type: 'output-prediction',
+      topic: 'Hồi quy logistic',
+      question: 'Mô hình đầu ra xác suất = 0.3. Với ngưỡng 0.5, dự đoán là gì?',
+      options: ['Nhóm 1', 'Nhóm 0', '0.3', 'Không xác định'],
+      answerIndex: 1,
+      explanation: '0.3 < 0.5 nên dự đoán Nhóm 0.',
+    },
+    {
+      id: 'e1c14',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'Quy trình ML',
+      question: 'Mô hình quá đơn giản và hoạt động kém cả trên train lẫn test. Đây là…',
+      options: ['Overfitting', 'Underfitting', 'Bình thường', 'Phân loại'],
+      answerIndex: 1,
+      explanation: 'Underfitting nghĩa là mô hình quá đơn giản.',
+    },
+    {
+      id: 'e1c15',
+      module: 'C',
+      type: 'multiple-choice',
+      topic: 'MVP',
+      question: 'Bước đầu tiên khi thiết kế MVP là gì?',
+      options: ['Xây toàn bộ sản phẩm', 'Xác định vấn đề cốt lõi', 'Thêm nhiều tính năng', 'Ra mắt khắp nơi'],
+      answerIndex: 1,
+      explanation: 'Bắt đầu bằng việc xác định vấn đề cốt lõi sản phẩm giải quyết.',
+    },
+
+    // ===== Module D (9) — Logic, Ethics & AI Behavior =====
+    {
+      id: 'e1d1',
+      module: 'D',
+      type: 'output-prediction',
+      topic: 'Logic',
+      question: 'Số tiếp theo của dãy 2, 4, 6, 8, ? là gì?',
+      options: ['9', '10', '12', '16'],
+      answerIndex: 1,
+      explanation: 'Quy luật cộng 2 mỗi lần. 8 + 2 = 10.',
+    },
+    {
+      id: 'e1d2',
+      module: 'D',
+      type: 'multiple-choice',
+      topic: 'Đạo đức AI',
+      question: 'AI bias (thiên kiến AI) là gì?',
+      options: ['AI chạy quá nhanh', 'Kết quả bất công do dữ liệu huấn luyện thiên lệch', 'AI bịa ra sự thật', 'AI chạy chậm'],
+      answerIndex: 1,
+      explanation: 'Bias bắt nguồn từ dữ liệu huấn luyện thiên lệch.',
+    },
+    {
+      id: 'e1d3',
+      module: 'D',
+      type: 'multiple-choice',
+      topic: 'Ứng xử',
+      question: 'Đồng đội đang bí một công việc. Ứng xử tốt nhất là gì?',
+      options: ['Tự làm một mình', 'Đề nghị giúp đỡ và giải thích cách làm', 'Đổ lỗi cho họ', 'Bỏ qua vấn đề'],
+      answerIndex: 1,
+      explanation: 'Làm việc nhóm tốt là đề nghị giúp đỡ và hợp tác.',
+    },
+    {
+      id: 'e1d4',
+      module: 'D',
+      type: 'output-prediction',
+      topic: 'Logic',
+      question: 'Số tiếp theo của dãy 3, 6, 9, 12, ? là gì?',
+      options: ['13', '14', '15', '18'],
+      answerIndex: 2,
+      explanation: 'Quy luật cộng 3. 12 + 3 = 15.',
+    },
+    {
+      id: 'e1d5',
+      module: 'D',
+      type: 'multiple-choice',
+      topic: 'Đạo đức AI',
+      question: 'Hallucination (ảo giác) trong AI là gì?',
+      options: ['AI sáng tạo', 'AI tự tin đưa ra thông tin sai', 'AI chạy chậm', 'AI học từ dữ liệu'],
+      answerIndex: 1,
+      explanation: 'Hallucination là khi AI tự tin bịa ra thông tin sai.',
+    },
+    {
+      id: 'e1d6',
+      module: 'D',
+      type: 'multiple-choice',
+      topic: 'Ứng xử',
+      question: 'Bạn không thể tự giải quyết một vấn đề. Bạn nên làm gì?',
+      options: ['Bỏ cuộc', 'Nhờ đồng đội giúp', 'Đoán đại', 'Giấu vấn đề'],
+      answerIndex: 1,
+      explanation: 'Nhờ giúp đỡ là hành vi giải quyết vấn đề tốt.',
+    },
+    {
+      id: 'e1d7',
+      module: 'D',
+      type: 'output-prediction',
+      topic: 'Logic',
+      question: 'Số tiếp theo của dãy 1, 1, 2, 3, 5, ? là gì?',
+      options: ['6', '7', '8', '9'],
+      answerIndex: 2,
+      explanation: 'Mỗi số bằng tổng hai số trước: 3 + 5 = 8.',
+    },
+    {
+      id: 'e1d8',
+      module: 'D',
+      type: 'multiple-choice',
+      topic: 'Đạo đức AI',
+      question: 'Vì sao quyền riêng tư (privacy) quan trọng trong AI?',
+      options: ['Giúp AI nhanh hơn', 'Bảo vệ dữ liệu cá nhân của người dùng', 'Giúp AI rẻ hơn', 'Không quan trọng'],
+      answerIndex: 1,
+      explanation: 'Quyền riêng tư bảo vệ dữ liệu cá nhân khỏi bị lạm dụng.',
+    },
+    {
+      id: 'e1d9',
+      module: 'D',
+      type: 'multiple-choice',
+      topic: 'Ứng xử',
+      question: 'Cách tiếp cận giải quyết vấn đề tốt là gì?',
+      options: ['Giải quyết mọi thứ cùng lúc', 'Chia vấn đề thành các phần nhỏ', 'Bỏ qua vấn đề', 'Luôn tự làm một mình'],
+      answerIndex: 1,
+      explanation: 'Chia nhỏ vấn đề giúp việc giải quyết dễ dàng hơn.',
+    },
+  ],
+}
+
