@@ -2,6 +2,18 @@
 
 All notable project updates are tracked here.
 
+## [0.3.1] — 2026-08-11 — Day 5 "dễ nhớ" (mnemonics, flows, examples)
+
+### Changed
+- **`day5-linear-regression`**: thêm mẹo nhớ & ví dụ tay — "Dự đoán = điểm bắt đầu + độ dốc × x", "Residual = REAL − PREDICTED", "SSE = Square rồi Sum", "MSE = SSE / số điểm"; ví dụ ŷ=2+3x→14, actual [3,5,8] vs predicted [2,6,7]→SSE=3; flow tính tay thuộc lòng.
+- **`day5-logistic-regression`**: thêm 2 tầng Linear→Sigmoid→Probability→Threshold→Class, "3 điều phải thuộc" về σ(z), mẹo cực mạnh "threshold 0.5 → chỉ cần dấu z", và **threshold có thể đổi** (P=0.7 vs thr 0.8/0.6).
+- **`day5-gradient-descent`**: thêm vòng học Prediction→Loss→Gradient→Update→tốt hơn và mẹo "dấu − = đi ngược gradient để xuống Cost".
+- **`day5-derivative`**: liên hệ đạo hàm của Cost = Gradient (input của Gradient Descent).
+- **`day5-kmeans`**: thêm flow nhớ nhanh K → khoảng cách → gán gần nhất → centroid → hội tụ.
+
+### Mock exams
+- Module C của `mock-exam-1/2/3`: bổ sung câu hỏi **threshold thay đổi** (so P với threshold, không phải 0.5 cố định) — thay câu z-sign cũ, giữ nguyên A=15/B=21/C=15/D=9.
+
 ## [0.3.0] — 2026-08-11 — Deepened Day 5 (tính tay) + Updated Mock Exams
 
 ### Added

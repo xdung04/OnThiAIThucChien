@@ -1,90 +1,112 @@
 export default {
   slug: 'day5-linear-regression',
   title: 'Hồi quy tuyến tính',
-  subtitle: 'Dự đoán số, tính sai số (residual), SSE, MSE và R²',
+  subtitle: 'Dự đoán số, sai số (residual), SSE, MSE và R²',
   module: 'Module C · Kiến thức AI',
-  time: '15 phút',
+  time: '16 phút',
   difficulty: 'Easy',
   importance: 'High',
-  assessmentTip: 'Nhớ cả chuỗi tính tay: ŷ = b₀ + b₁x → residual e = y − ŷ → SSE = Σe² → MSE = SSE/n. R² càng gần 1 càng tốt (so sánh 2 mô hình).',
+  assessmentTip: 'Thuộc lòng câu thần chú: Dự đoán → sai số → bình phương → CỘNG (SSE) → CHIA (MSE). Và: Residual = REAL − PREDICTED (y − ŷ).',
   quizId: 'day5-linear-regression',
   objectives: [
     'Tính dự đoán ŷ từ b₀, b₁ và x',
     'Tính residual e = y − ŷ',
-    'Tính SSE và MSE',
-    'Hiểu ý nghĩa R² và so sánh hai mô hình',
+    'Tính SSE rồi MSE',
+    'Hiểu R² và so sánh hai mô hình',
   ],
   whatIsIt: [
-    'Hồi quy tuyến tính dự đoán một số liên tục (giá, nhiệt độ…) bằng một đường thẳng.',
-    'Đường thẳng được viết dưới dạng ŷ = b₀ + b₁·x.',
-    'b₀ là hệ số chặn (nơi đường cắt trục y); b₁ là hệ số góc (độ dốc).',
+    'Hồi quy tuyến tính xoay quanh một câu duy nhất: từ x, dự đoán một giá trị số y.',
+    'Đường thẳng dự đoán: ŷ = b₀ + b₁·x.',
     'Mục tiêu là tìm đường thẳng càng sát dữ liệu thật càng tốt.',
   ],
   whyImportant: [
     'Hồi quy tuyến tính là chủ đề được xác nhận ưu tiên cao.',
-    'Kỳ đánh giá có thể hỏi tính tay dự đoán, sai số và đánh giá mô hình.',
-    'Biết tính SSE, MSE, R² giúp trả lời câu hỏi so sánh hai mô hình.',
+    'Kỳ đánh giá thường hỏi tính tay dự đoán, sai số và so sánh mô hình.',
+    'Biết tính SSE, MSE, R² giúp trả lời câu so sánh hai mô hình.',
   ],
   keyConcepts: [
-    'Phương trình dự đoán: ŷ = b₀ + b₁·x',
-    'Dự đoán: thay x vào để ra ŷ',
+    'Prediction: ŷ = b₀ + b₁·x',
+    'b₀ = intercept (điểm bắt đầu); b₁ = slope (x tăng 1 thì y đổi bao nhiêu)',
+    '🧠 Mẹo: "Dự đoán = điểm bắt đầu + độ dốc × x"',
     'Residual (sai số từng điểm): e = y − ŷ',
-    'SSE = tổng bình phương các residual (Σ e²)',
-    'MSE = SSE / n (n là số điểm dữ liệu)',
-    'R²: chỉ số mô hình tốt đến đâu; càng gần 1 càng tốt',
+    '🧠 Mẹo: "Residual = REAL − PREDICTED"; dấu +/− biết model đoán thấp hay cao',
+    'SSE = Σ e² — bình phương rồi CỘNG hết',
+    'MSE = SSE / n — CHIA cho số điểm',
+    'R²: càng gần 1 càng tốt; dùng để so sánh hai mô hình',
   ],
   examples: [
     {
-      code: `# Dự đoán ŷ = b0 + b1*x
-b0, b1 = 1, 2
-xs = [1, 2, 3]
-ys_real = [4, 5, 6]   # giá trị thật
-y_hat = [b0 + b1 * x for x in xs]
-print(y_hat)  # [3, 5, 7]
-
-# Residual e = y - y_hat
-e = [y - yh for y, yh in zip(ys_real, y_hat)]
-print(e)  # [1, 0, -1]`,
-      note: 'Dự đoán từ b₀, b₁, x; residual là chênh lệch giữa giá trị thật và giá trị dự đoán.',
+      code: `# Prediction: y_hat = b0 + b1*x
+b0, b1 = 2, 3
+x = 4
+y_hat = b0 + b1 * x
+print(y_hat)  # 2 + 3*4 = 14`,
+      note: 'Mẹo: "Dự đoán = điểm bắt đầu + độ dốc × x". Với ŷ = 2 + 3x, x=4 → 14.',
     },
     {
-      code: `# SSE va MSE từ residual [1, 0, -1]
-e = [1, 0, -1]
+      code: `# Residual: e = real - predicted
+actual = [3, 5, 8]
+predicted = [2, 6, 7]
+e = [a - p for a, p in zip(actual, predicted)]
+print(e)  # [1, -1, 1]
+
+# SSE = Square roi Sum
 sse = sum(x * x for x in e)
-print(sse)      # 2
-mse = sse / 3   # n = 3 diem
-print(mse)      # 0.666...
-print(mse**0.5) # RMSE ~ 0.816`,
-      note: 'SSE = Σe² = 1+0+1 = 2. MSE = SSE/n = 2/3. Mô hình có residual càng nhỏ càng tốt.',
+print(sse)  # 1 + 1 + 1 = 3
+
+# MSE = SSE / so diem
+mse = sse / 3
+print(mse)  # 3 / 3 = 1.0`,
+      note: 'Mẹo: Residual = REAL − PREDICTED. SSE = bình phương rồi CỘNG. MSE = SSE chia số điểm.',
+    },
+    {
+      code: `# Vi du khac: SSE=12, n=4 -> MSE?
+SSE = 12
+n = 4
+MSE = SSE / n
+print(MSE)  # 3`,
+      note: 'Nếu đề hỏi "tổng squared errors" → SSE; "mean squared error" → MSE = SSE/n.',
+    },
+    {
+      code: `# Flow thuoc long
+# x
+#  ->  y_hat = b0 + b1*x
+#  ->  residual = y - y_hat
+#  ->  residual^2
+#  ->  SSE = sum(residual^2)
+#  ->  MSE = SSE / n`,
+      note: 'Đây là toàn bộ flow tính tay bạn nên thuộc lòng cho Linear Regression.',
     },
   ],
   assessmentQs: [
-    'Cho b₀, b₁ và x, tính ŷ như thế nào?',
-    'Residual của một điểm là gì?',
-    'SSE là gì và tính ra sao?',
+    'Cho b₀, b₁, x, tính ŷ như thế nào?',
+    'Residual của một điểm là gì? (thật trừ dự đoán)',
+    'SSE là gì — bình phương rồi làm gì?',
     'MSE bằng công thức nào?',
-    'R² càng gần 1 nghĩa là gì? Mô hình nào tốt hơn khi so sánh?',
+    'R² càng gần 1 nghĩa là gì? Mô hình nào tốt hơn?',
+    'Khi nào dùng SSE thay cho MSE, và ngược lại?',
   ],
   mistakes: [
-    'Dùng sai thứ tự: residual là thật trừ dự đoán (y − ŷ).',
+    'Lộn thứ tự residual: phải là y − ŷ (REAL − PREDICTED).',
     'Quên bình phương residual trước khi cộng để ra SSE.',
-    'Nhầm MSE (chia cho n) với SSE (không chia).',
+    'Nhầm SSE (CỘNG, không chia) với MSE (CHIA cho n).',
     'Nghĩ R² càng thấp càng tốt — thực ra càng gần 1 càng tốt.',
-    'Chia SSE cho 2 thay vì n.',
+    'Vì residual âm mà loại bỏ — luôn bình phương trước khi cộng.',
   ],
   summary: [
-    'Dự đoán: ŷ = b₀ + b₁·x.',
-    'Residual: e = y − ŷ (thật trừ dự đoán).',
-    'SSE = Σe²; MSE = SSE/n.',
-    'R² gần 1 → mô hình tốt; dùng để so sánh hai mô hình.',
+    'Dự đoán = điểm bắt đầu + độ dốc × x → ŷ = b₀ + b₁·x.',
+    'Residual = REAL − PREDICTED = y − ŷ.',
+    'SSE = bình phương rồi CỘNG; MSE = SSE chia n.',
+    'R² gần 1 → mô hình tốt.',
+    'Câu thần chú: Dự đoán → sai số → bình phương → CỘNG → CHIA.',
   ],
   cheatSheet: [
-    { term: 'Phương trình dự đoán', def: 'ŷ = b₀ + b₁·x' },
-    { term: 'b₀ / b₁', def: 'hệ số chặn / hệ số góc' },
-    { term: 'Residual', def: 'e = y − ŷ' },
-    { term: 'SSE', def: 'Σ e² (tổng bình phương residual)' },
-    { term: 'MSE', def: 'SSE / n' },
+    { term: 'Dự đoán', def: 'ŷ = b₀ + b₁·x (điểm bắt đầu + độ dốc × x)' },
+    { term: 'b₀ / b₁', def: 'intercept (điểm bắt đầu) / slope (độ dốc)' },
+    { term: 'Residual', def: 'e = y − ŷ (REAL − PREDICTED)' },
+    { term: 'SSE', def: 'Σ e² (Square rồi Sum)' },
+    { term: 'MSE', def: 'SSE / n (chia cho số điểm)' },
     { term: 'R²', def: 'càng gần 1 càng tốt' },
-    { term: 'So sánh', def: 'mô hình có MSE nhỏ / R² cao hơn thì tốt hơn' },
+    { term: 'So sánh model', def: 'MSE nhỏ hơn / R² cao hơn → tốt hơn' },
   ],
 }

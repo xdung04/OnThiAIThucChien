@@ -68,7 +68,7 @@ export default {
     'Đạo hàm = độ dốc (slope).',
     'x² → 2x; 3x² + 2x → 6x + 2; hằng số → 0.',
     'Gradient dương → hàm tăng; âm → hàm giảm.',
-    'Đạo hàm dùng để cập nhật tham số trong học máy.',
+    'Đạo hàm của Cost chính là Gradient dùng trong Gradient Descent (để cập nhật tham số).',
   ],
   cheatSheet: [
     { term: 'Đạo hàm', def: 'độ dốc (slope) của hàm' },
@@ -78,5 +78,6 @@ export default {
     { term: 'd/dx (3x²+2x)', def: '6x + 2' },
     { term: 'Gradient dương', def: 'hàm đang tăng' },
     { term: 'Gradient âm', def: 'hàm đang giảm' },
+    { term: 'Trong ML', def: 'đạo hàm của Cost = Gradient (input của Gradient Descent)' },
   ],
 }

@@ -65,11 +65,11 @@ export default {
     'Không biết hội tụ nghĩa là cụm không đổi.',
   ],
   summary: [
+    'Flow nhớ nhanh: K → khoảng cách → gán cụm gần nhất → centroid mới = trung bình → lặp đến hội tụ.',
     'K là số cụm.',
     'Khoảng cách Euclid: √(Δx² + Δy²).',
     'Gán điểm vào centroid gần nhất.',
-    'Centroid mới = trung bình cụm.',
-    'Hội tụ khi cụm không đổi.',
+    'Centroid mới = trung bình cụm; hội tụ khi cụm không đổi.',
   ],
   cheatSheet: [
     { term: 'K', def: 'số cụm (cluster)' },
