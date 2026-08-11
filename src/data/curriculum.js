@@ -57,8 +57,11 @@ export const DAYS = [
     path: '/day/5',
     lessons: [
       { slug: 'day5-ai-ml-dl', title: 'AI vs ML vs Học sâu', time: '10 phút' },
-      { slug: 'day5-linear-regression', title: 'Hồi quy tuyến tính', time: '12 phút' },
-      { slug: 'day5-logistic-regression', title: 'Hồi quy logistic', time: '10 phút' },
+      { slug: 'day5-linear-regression', title: 'Hồi quy tuyến tính', time: '15 phút' },
+      { slug: 'day5-logistic-regression', title: 'Hồi quy logistic', time: '14 phút' },
+      { slug: 'day5-derivative', title: 'Đạo hàm & Gradient', time: '12 phút' },
+      { slug: 'day5-gradient-descent', title: 'Gradient Descent', time: '13 phút' },
+      { slug: 'day5-kmeans', title: 'K-Means (Gom cụm)', time: '14 phút' },
       { slug: 'day5-ml-workflow', title: 'Quy trình ML & Overfitting', time: '12 phút' },
     ],
     quizId: 'day5',

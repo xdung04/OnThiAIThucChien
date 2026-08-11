@@ -1,79 +1,90 @@
 export default {
   slug: 'day5-linear-regression',
   title: 'Hồi quy tuyến tính',
-  subtitle: 'Dự đoán một số từ dữ liệu bằng đường thẳng',
+  subtitle: 'Dự đoán số, tính sai số (residual), SSE, MSE và R²',
   module: 'Module C · Kiến thức AI',
-  time: '12 phút',
-  difficulty: 'Beginner',
+  time: '15 phút',
+  difficulty: 'Easy',
   importance: 'High',
-  assessmentTip: 'Nhớ rằng hồi quy tuyến tính dự đoán số liên tục, dùng một đường thẳng (y = mx + b), và là bài toán hồi quy (không phải phân loại).',
+  assessmentTip: 'Nhớ cả chuỗi tính tay: ŷ = b₀ + b₁x → residual e = y − ŷ → SSE = Σe² → MSE = SSE/n. R² càng gần 1 càng tốt (so sánh 2 mô hình).',
   quizId: 'day5-linear-regression',
   objectives: [
-    'Hiểu hồi quy tuyến tính làm gì',
-    'Biết nó dự đoán các số liên tục',
-    'Hiểu phương trình đường thẳng y = mx + b',
+    'Tính dự đoán ŷ từ b₀, b₁ và x',
+    'Tính residual e = y − ŷ',
+    'Tính SSE và MSE',
+    'Hiểu ý nghĩa R² và so sánh hai mô hình',
   ],
   whatIsIt: [
-    'Hồi quy tuyến tính dự đoán một số từ dữ liệu đầu vào.',
-    'Nó khớp một đường thẳng vào dữ liệu.',
-    'Đường thẳng được mô tả bởi y = mx + b.',
+    'Hồi quy tuyến tính dự đoán một số liên tục (giá, nhiệt độ…) bằng một đường thẳng.',
+    'Đường thẳng được viết dưới dạng ŷ = b₀ + b₁·x.',
+    'b₀ là hệ số chặn (nơi đường cắt trục y); b₁ là hệ số góc (độ dốc).',
+    'Mục tiêu là tìm đường thẳng càng sát dữ liệu thật càng tốt.',
   ],
   whyImportant: [
     'Hồi quy tuyến tính là chủ đề được xác nhận ưu tiên cao.',
-    'Câu hỏi kiểm tra nó dự đoán gì và hoạt động thế nào ở mức khái quát.',
-    'Không cần suy luận toán học.',
+    'Kỳ đánh giá có thể hỏi tính tay dự đoán, sai số và đánh giá mô hình.',
+    'Biết tính SSE, MSE, R² giúp trả lời câu hỏi so sánh hai mô hình.',
   ],
   keyConcepts: [
-    'Dự đoán một số liên tục (ví dụ: giá, nhiệt độ)',
-    'Dùng một đường thẳng: y = mx + b',
-    'm là hệ số góc (độ dốc của đường thẳng)',
-    'b là hệ số chặn (nơi đường cắt trục y)',
-    'Đây là bài toán hồi quy, không phải phân loại',
+    'Phương trình dự đoán: ŷ = b₀ + b₁·x',
+    'Dự đoán: thay x vào để ra ŷ',
+    'Residual (sai số từng điểm): e = y − ŷ',
+    'SSE = tổng bình phương các residual (Σ e²)',
+    'MSE = SSE / n (n là số điểm dữ liệu)',
+    'R²: chỉ số mô hình tốt đến đâu; càng gần 1 càng tốt',
   ],
   examples: [
     {
-      code: `# Ý tưởng (không chạy được)
-# Dự đoán giá nhà theo diện tích
-# y = m * size + b
-# y = 100 * size + 50000
+      code: `# Dự đoán ŷ = b0 + b1*x
+b0, b1 = 1, 2
+xs = [1, 2, 3]
+ys_real = [4, 5, 6]   # giá trị thật
+y_hat = [b0 + b1 * x for x in xs]
+print(y_hat)  # [3, 5, 7]
 
-size = 120
-price = 100 * size + 50000
-print(price)  # 62000`,
-      note: 'Với một diện tích, đường thẳng dự đoán giá. Đây là một số liên tục.',
+# Residual e = y - y_hat
+e = [y - yh for y, yh in zip(ys_real, y_hat)]
+print(e)  # [1, 0, -1]`,
+      note: 'Dự đoán từ b₀, b₁, x; residual là chênh lệch giữa giá trị thật và giá trị dự đoán.',
     },
     {
-      code: `# Ví dụ: dự đoán nhiệt độ theo số giờ nắng
-# y = 2 * hours + 20
-hours = 5
-temp = 2 * hours + 20
-print(temp)  # 30`,
-      note: 'Mô hình dùng một đường thẳng để dự đoán một con số.',
+      code: `# SSE va MSE từ residual [1, 0, -1]
+e = [1, 0, -1]
+sse = sum(x * x for x in e)
+print(sse)      # 2
+mse = sse / 3   # n = 3 diem
+print(mse)      # 0.666...
+print(mse**0.5) # RMSE ~ 0.816`,
+      note: 'SSE = Σe² = 1+0+1 = 2. MSE = SSE/n = 2/3. Mô hình có residual càng nhỏ càng tốt.',
     },
   ],
   assessmentQs: [
-    'Hồi quy tuyến tính dự đoán gì?',
-    'Phương trình của đường thẳng là gì?',
-    'Hồi quy tuyến tính là hồi quy hay phân loại?',
-    'Hệ số góc (m) thể hiện gì?',
+    'Cho b₀, b₁ và x, tính ŷ như thế nào?',
+    'Residual của một điểm là gì?',
+    'SSE là gì và tính ra sao?',
+    'MSE bằng công thức nào?',
+    'R² càng gần 1 nghĩa là gì? Mô hình nào tốt hơn khi so sánh?',
   ],
   mistakes: [
-    'Nghĩ hồi quy tuyến tính dự đoán nhãn — nó dự đoán số.',
-    'Quên phương trình đường thẳng y = mx + b.',
-    'Nhầm hệ số góc (m) với hệ số chặn (b).',
-    'Nghĩ nó là bài toán phân loại.',
+    'Dùng sai thứ tự: residual là thật trừ dự đoán (y − ŷ).',
+    'Quên bình phương residual trước khi cộng để ra SSE.',
+    'Nhầm MSE (chia cho n) với SSE (không chia).',
+    'Nghĩ R² càng thấp càng tốt — thực ra càng gần 1 càng tốt.',
+    'Chia SSE cho 2 thay vì n.',
   ],
   summary: [
-    'Hồi quy tuyến tính dự đoán một số liên tục.',
-    'Nó khớp một đường thẳng: y = mx + b.',
-    'm là hệ số góc; b là hệ số chặn.',
-    'Đây là bài toán hồi quy.',
+    'Dự đoán: ŷ = b₀ + b₁·x.',
+    'Residual: e = y − ŷ (thật trừ dự đoán).',
+    'SSE = Σe²; MSE = SSE/n.',
+    'R² gần 1 → mô hình tốt; dùng để so sánh hai mô hình.',
   ],
   cheatSheet: [
-    { term: 'Hồi quy tuyến tính', def: 'dự đoán một số liên tục' },
-    { term: 'Phương trình đường', def: 'y = mx + b' },
-    { term: 'm (hệ số góc)', def: 'độ dốc của đường thẳng' },
-    { term: 'b (hệ số chặn)', def: 'nơi đường cắt trục y' },
-    { term: 'Loại bài toán', def: 'hồi quy (không phải phân loại)' },
+    { term: 'Phương trình dự đoán', def: 'ŷ = b₀ + b₁·x' },
+    { term: 'b₀ / b₁', def: 'hệ số chặn / hệ số góc' },
+    { term: 'Residual', def: 'e = y − ŷ' },
+    { term: 'SSE', def: 'Σ e² (tổng bình phương residual)' },
+    { term: 'MSE', def: 'SSE / n' },
+    { term: 'R²', def: 'càng gần 1 càng tốt' },
+    { term: 'So sánh', def: 'mô hình có MSE nhỏ / R² cao hơn thì tốt hơn' },
   ],
 }

@@ -2,6 +2,25 @@
 
 All notable project updates are tracked here.
 
+## [0.3.0] — 2026-08-11 — Deepened Day 5 (tính tay) + Updated Mock Exams
+
+### Added
+- **New Day 5 lessons**: `day5-derivative`, `day5-gradient-descent`, `day5-kmeans` (all 10-section template, Vietnamese).
+- **New Day 5 quizzes**: `day5-derivative`, `day5-gradient-descent`, `day5-kmeans` (5 questions each).
+
+### Changed
+- **`day5-linear-regression`** deepened: `ŷ = b₀ + b₁x` prediction, residual `e = y − ŷ`, `SSE = Σe²`, `MSE = SSE/n`, R² meaning & model comparison.
+- **`day5-logistic-regression`** deepened: `z = b₀ + b₁x`, sigmoid `σ(z)` with `σ(0) = 0.5`, probability → threshold 0.5 → class 0/1.
+- **`day3-statistics`** lesson + quiz: added worked hand-calculation of variance/std.
+- **`day5.js`** quick test extended with hand-calc items for the new topics.
+- **Mock exams (`mock-exam-1/2/3`)**: Module C (15) rewritten to test the deeper Day 5 content (ŷ, residual, SSE, MSE, R², z, sigmoid, threshold, derivative, gradient descent, K-Means). Module counts kept at A=15 / B=21 / C=15 / D=9.
+- **`src/data/curriculum.js`**: Day 5 now lists 7 lessons.
+
+### Docs
+- `docs/ROADMAP.md` — Day 5 checklist updated with tính-tay skills.
+- `docs/PROJECT_RULES.md` — Clustering and Calculus/Optimization Math removed from Forbidden Topics (K-Means, Derivative, Gradient Descent are now in scope).
+- `docs/DECISION_LOG.md` — recorded the new decisions.
+
 ## [0.2.0] — 2026-08-04 — Multi-account, 60-question Exams & Vietnamese Content
 
 ### Added

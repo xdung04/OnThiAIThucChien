@@ -39,11 +39,32 @@ Organized by **days**, not assessment modules. The 7-day plan maps to the offici
 - [ ] Focus on reading Pandas code
 - [ ] Mini Quiz
 
-## Day 5 — AI, ML & Regression
+## Day 5 — AI, ML & Regression (tính tay)
 
 - [ ] Difference between AI, Machine Learning, Deep Learning
-- [ ] Linear Regression
-- [ ] Logistic Regression
+- [ ] Linear Regression (tính tay)
+  - [ ] Predict `ŷ = b₀ + b₁x`
+  - [ ] Residual `e = y − ŷ`
+  - [ ] `SSE = Σe²`
+  - [ ] `MSE = SSE / n`
+  - [ ] `R²` meaning & compare 2 models
+- [ ] Derivative & Gradient (tính tay)
+  - [ ] Derivative of `x²`, `3x² + 2x`
+  - [ ] Gradient positive/negative
+- [ ] Gradient Descent (tính tay)
+  - [ ] `θ_new = θ_old − α·∇J`
+  - [ ] Learning rate small vs large
+  - [ ] Goal = minimize cost/loss
+- [ ] Logistic Regression (tính tay)
+  - [ ] Compute `z = b₀ + b₁x`
+  - [ ] Sigmoid `σ(z)`, `σ(0) = 0.5`
+  - [ ] Probability → threshold 0.5 → class 0/1
+- [ ] K-Means (tính tay)
+  - [ ] K = number of clusters
+  - [ ] Euclidean distance point → centroid
+  - [ ] Assign to nearest centroid
+  - [ ] Centroid = mean of cluster
+  - [ ] Iterate & convergence
 - [ ] Regression vs Classification
 - [ ] Train/Test Split
 - [ ] Overfitting vs Underfitting

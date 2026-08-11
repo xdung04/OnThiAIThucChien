@@ -1,81 +1,86 @@
 export default {
   slug: 'day5-logistic-regression',
   title: 'Hồi quy logistic',
-  subtitle: 'Dự đoán một nhãn (phân loại) bằng xác suất',
+  subtitle: 'Tính z, sigmoid, xác suất và ngưỡng phân loại',
   module: 'Module C · Kiến thức AI',
-  time: '10 phút',
-  difficulty: 'Beginner',
+  time: '14 phút',
+  difficulty: 'Easy',
   importance: 'High',
-  assessmentTip: 'Nhớ rằng hồi quy logistic dùng cho phân loại (nhãn), không phải số. Nó đầu ra một xác suất từ 0 đến 1.',
+  assessmentTip: 'Nhớ chuỗi tính tay: z = b₀ + b₁x → sigmoid σ(z) → xác suất → ngưỡng 0.5 quyết định nhãn. Đặc biệt σ(0) = 0.5 và z>0 → nhãn 1.',
   quizId: 'day5-logistic-regression',
   objectives: [
-    'Hiểu hồi quy logistic làm gì',
-    'Biết đó là bài toán phân loại',
-    'Hiểu nó đầu ra một xác suất',
+    'Tính z = b₀ + b₁x',
+    'Tính sigmoid σ(z) và biết σ(0) = 0.5',
+    'Chuyển xác suất → nhãn qua ngưỡng 0.5',
+    'Nhận biết z > 0 hay z < 0 quyết định nhãn',
   ],
   whatIsIt: [
-    'Hồi quy logistic dự đoán một nhãn, không phải một số.',
-    'Nó dùng cho phân loại (ví dụ: thư rác hay không).',
-    'Nó đầu ra một xác suất từ 0 đến 1.',
+    'Hồi quy logistic dự đoán một nhãn (phân loại), không phải một số.',
+    'Trước tiên nó tính một giá trị tuyến tính z = b₀ + b₁·x.',
+    'Sau đó nén z thành xác suất trong khoảng 0–1 bằng hàm sigmoid.',
+    'Ngưỡng (thường 0.5) quyết định nhãn cuối cùng.',
   ],
   whyImportant: [
     'Hồi quy logistic là chủ đề được xác nhận ưu tiên cao.',
-    'Câu hỏi kiểm tra nó là hồi quy hay phân loại.',
-    'Hiểu đầu ra xác suất là điều then chốt.',
+    'Kỳ đánh giá có thể hỏi tính tay z, sigmoid và chuyển xác suất thành nhãn.',
+    'Nhớ σ(0) = 0.5 giúp trả lời nhanh nhiều câu trắc nghiệm.',
   ],
   keyConcepts: [
-    'Dùng cho phân loại (nhãn)',
-    'Đầu ra một xác suất từ 0 đến 1',
-    'Một ngưỡng (thường 0.5) quyết định nhãn',
-    'Dù tên gọi, nó KHÔNG dùng để dự đoán số',
-    'Ví dụ: phát hiện thư rác, quyết định có/không',
+    'Điểm tuyến tính: z = b₀ + b₁·x',
+    'Sigmoid: σ(z) = 1 / (1 + e^(−z))',
+    'σ(0) = 0.5 (điểm giữa)',
+    'Xác suất p = σ(z); p càng gần 1 nghĩa là khả năng nhãn 1 càng cao',
+    'Ngưỡng 0.5: p ≥ 0.5 → nhãn 1; p < 0.5 → nhãn 0',
+    'Quy tắc nhanh: z > 0 → p > 0.5 → nhãn 1 (và ngược lại)',
   ],
   examples: [
     {
-      code: `# Ý tưởng (không chạy được)
-# Dự đoán email có phải thư rác (1) hay không (0)
-# Mô hình đầu ra một xác suất, ví dụ 0.85
-probability = 0.85
-if probability >= 0.5:
-    print("Spam")   # 0.85 >= 0.5 → Spam
-else:
-    print("Not spam")`,
-      note: 'Hồi quy logistic đầu ra một xác suất. Ngưỡng (0.5) quyết định nhãn.',
+      code: `# Tính z = b0 + b1*x
+b0, b1, x = -2, 1, 3
+z = b0 + b1 * x
+print(z)  # 1.0  (z > 0 -> xac suat > 0.5 -> nhan 1)
+
+# Nhan biet nhan ma khong can may tinh
+# z = 1 > 0  ->  p = sigmoid(1) > 0.5  ->  nhan 1`,
+      note: 'z > 0 → xác suất > 0.5 → nhãn 1. Không cần máy tính để biết nhãn theo dấu của z.',
     },
     {
-      code: `# Ví dụ: dự đoán khách có mua hàng không (có/không)
-# Mô hình đầu ra xác suất = 0.3
-probability = 0.3
-if probability >= 0.5:
-    print("Will buy")
-else:
-    print("Will not buy")  # 0.3 < 0.5 → Will not buy`,
-      note: 'Kết quả là một xác suất; ngưỡng quyết định nhãn.',
+      code: `import math
+def sigmoid(z):
+    return 1 / (1 + math.exp(-z))
+
+print(sigmoid(0))   # 0.5
+print(sigmoid(1))   # ~0.731 (> 0.5 -> nhan 1)
+print(sigmoid(-1))  # ~0.269 (< 0.5 -> nhan 0)`,
+      note: 'σ(0) = 0.5. Nếu z dương thì xác suất trên 0.5 → nhãn 1; z âm → dưới 0.5 → nhãn 0.',
     },
   ],
   assessmentQs: [
-    'Hồi quy logistic là hồi quy hay phân loại?',
-    'Hồi quy logistic đầu ra gì?',
-    'Ngưỡng thường dùng là bao nhiêu?',
-    'Một ví dụ ứng dụng là gì?',
+    'Cho b₀, b₁, x, tính z như thế nào?',
+    'σ(0) bằng bao nhiêu?',
+    'Nếu z > 0, xác suất lớn hơn hay nhỏ hơn 0.5? Nhãn là gì?',
+    'Ngưỡng mặc định để phân loại là bao nhiêu?',
+    'Sigmoid biến z thành dải giá trị nào?',
   ],
   mistakes: [
     'Nghĩ hồi quy logistic dự đoán số — nó dự đoán nhãn.',
-    'Quên nó đầu ra một xác suất.',
-    'Nhầm nó với hồi quy tuyến tính.',
-    'Quên ngưỡng 0.5.',
+    'Quên σ(0) = 0.5.',
+    'Nhầm dấu z: z dương mới tương ứng xác suất > 0.5 (nhãn 1).',
+    'Bỏ qua bước sigmoid, nói xác suất = z.',
+    'Quên ngưỡng 0.5 khi chuyển xác suất sang nhãn.',
   ],
   summary: [
-    'Hồi quy logistic dùng cho phân loại.',
-    'Nó đầu ra một xác suất từ 0 đến 1.',
-    'Ngưỡng 0.5 quyết định nhãn.',
-    'Nó khác hồi quy tuyến tính.',
+    'Tính z = b₀ + b₁x.',
+    'Sigmoid nén z thành xác suất 0–1; σ(0) = 0.5.',
+    'Ngưỡng 0.5 quyết định nhãn 0/1.',
+    'z > 0 → nhãn 1; z < 0 → nhãn 0.',
   ],
   cheatSheet: [
-    { term: 'Hồi quy logistic', def: 'phân loại (nhãn)' },
-    { term: 'Đầu ra', def: 'xác suất từ 0 đến 1' },
-    { term: 'Ngưỡng', def: '0.5 quyết định nhãn' },
-    { term: 'Ví dụ', def: 'thư rác hay không' },
-    { term: 'Không dùng cho', def: 'dự đoán số liên tục' },
+    { term: 'Điểm tuyến tính', def: 'z = b₀ + b₁·x' },
+    { term: 'Sigmoid', def: 'σ(z) = 1 / (1 + e^(−z))' },
+    { term: 'Giá trị đặc biệt', def: 'σ(0) = 0.5' },
+    { term: 'Ngưỡng', def: '0.5: p ≥ 0.5 → nhãn 1' },
+    { term: 'Quy tắc nhanh', def: 'z > 0 → nhãn 1; z < 0 → nhãn 0' },
+    { term: 'Dải đầu ra', def: 'xác suất từ 0 đến 1' },
   ],
 }

@@ -55,6 +55,15 @@ print(data.var())   # 2.0
 print(data.std())   # 1.414...`,
       note: 'Phương sai là trung bình độ lệch bình phương; std là căn bậc hai của nó.',
     },
+    {
+      code: `# Tinh tay phuong sai va std cua [1, 2, 3, 4, 5]
+# 1) mean = (1+2+3+4+5)/5 = 3
+# 2) deviation: -2, -1, 0, 1, 2
+# 3) binh phuong: 4, 1, 0, 1, 4
+# 4) variance = (4+1+0+1+4)/5 = 10/5 = 2.0
+# 5) std = sqrt(2.0) ~ 1.414`,
+      note: 'Các bước tay: mean → deviation → bình phương → trung bình (variance) → căn bậc hai (std).',
+    },
   ],
   assessmentQs: [
     'Trung bình của danh sách đã cho là gì?',

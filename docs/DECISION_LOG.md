@@ -6,6 +6,11 @@ Records every scope and design decision.
 
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-08-11 | Day 5 deepened + extended (tính tay / no-calculator focus) | User requested Day 5 content go deeper per an "AI Roadmap — mục tiêu thi không dùng máy tính" |
+| 2026-08-11 | Added new Day 5 lessons: Derivative, Gradient Descent, K-Means | Explicitly requested; overrides the old Forbidden Topics that excluded Clustering & Calculus |
+| 2026-08-11 | Deepened Linear/Logistic Regression lessons & quizzes with hand-computation (ŷ, residual, SSE, MSE, R²; z, sigmoid, probability, threshold) | To match the deeper Day 5 scope |
+| 2026-08-11 | Deepened Day 3 Statistics with worked variance/std hand-calc | Roadmap covers statistics hand-computation |
+| 2026-08-11 | Updated Module C of all 3 mock exams to reflect deeper Day 5 (kept A=15/B=21/C=15/D=9) | Mock exams should test what Day 5 now teaches |
 | 2026-08-04 | 3 accounts (Dũng, An, Minh) | Site is shared with 2 more people; each keeps their own progress/mistakes |
 | 2026-08-04 | Mock exams = 60 questions / 90 minutes | Matches the real assessment format; keeps the 25/35/25/15 module split (A15/B21/C15/D9) |
 | 2026-08-04 | Content language = Vietnamese | To fit the learners who use this playbook |

@@ -70,9 +70,11 @@ Unless explicitly requested, never include:
 - LLM, Prompt Engineering, LangChain, RAG
 - PyTorch, TensorFlow
 - SVM, Decision Tree, Random Forest, KNN, Naive Bayes
-- Clustering, PCA, SVD
-- Calculus, Optimization
+- PCA, SVD
 - Advanced Linear Algebra
+- Full calculus / optimization theory (only the hand-computable basics are included: derivative of simple polynomials, gradient sign)
+
+> Note: **Clustering (K-Means)** and **Calculus/Optimization basics (Derivative, Gradient Descent)** are explicitly part of the scope per the Day 5 roadmap (tính tay / hand-computable).
 
 ## Development Workflow
 
