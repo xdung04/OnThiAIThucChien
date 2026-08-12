@@ -89,7 +89,8 @@ export const DAYS = [
     lessons: [
       { slug: 'day7-cnn-convolution', title: 'CNN & Phép tích chập', time: '10 phút' },
     ],
-    noQuiz: true,
+    quizId: 'day7-cnn-convolution',
+    quizTitle: 'Kiểm tra nhanh Ngày 7',
   },
 ]
 

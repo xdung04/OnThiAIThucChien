@@ -88,6 +88,7 @@ Organized by **days**, not assessment modules. The 7-day plan maps to the offici
 - [ ] Stride
 - [ ] Padding
 - [ ] Output Size: `Output = (Input − Kernel + 2×Padding) / Stride + 1` (tính tay, số nhỏ)
+- [ ] Kiểm tra nhanh CNN (6 câu trắc nghiệm, không máy tính)
 - [ ] Tất cả ở mức trắc nghiệm không máy tính
 
 ---

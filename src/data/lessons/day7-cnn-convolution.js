@@ -7,7 +7,7 @@ export default {
   difficulty: 'Beginner',
   importance: 'Medium',
   assessmentTip: 'Đây là câu trắc nghiệm không máy tính. Hãy thuộc công thức Output Size và biết tích chập = "nhân rồi cộng". Khi làm bài, cứ đặt số nhỏ vào công thức mà tính tay.',
-  quizId: null,
+  quizId: 'day7-cnn-convolution',
   objectives: [
     'Hiểu CNN là mạng nơ-ron chuyên xử lý ảnh',
     'Biết Kernel/Filter là gì và cách phép Convolution hoạt động',
