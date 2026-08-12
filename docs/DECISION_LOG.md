@@ -6,6 +6,7 @@ Records every scope and design decision.
 
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-08-12 | Added CNN & Convolution basics to Day 7 (Kernel/Filter, Convolution, Feature Map, Stride, Padding, Output Size) — basic, no-calculator MCQ level | Explicitly requested by user; overrides the old Forbidden Topic that excluded CNN. Replaces the old Day 7 assessment-tips lesson; Day 7 now has a single CNN lesson and no quiz |
 | 2026-08-11 | Day 5 deepened + extended (tính tay / no-calculator focus) | User requested Day 5 content go deeper per an "AI Roadmap — mục tiêu thi không dùng máy tính" |
 | 2026-08-11 | Added new Day 5 lessons: Derivative, Gradient Descent, K-Means | Explicitly requested; overrides the old Forbidden Topics that excluded Clustering & Calculus |
 | 2026-08-11 | Deepened Linear/Logistic Regression lessons & quizzes with hand-computation (ŷ, residual, SSE, MSE, R²; z, sigmoid, probability, threshold) | To match the deeper Day 5 scope |

@@ -65,7 +65,7 @@ The goal is to help a complete beginner pass the assessment in **7 days** — no
 
 Unless explicitly requested, never include:
 
-- CNN, RNN, Transformer, Attention
+- RNN, Transformer, Attention
 - GAN, Diffusion
 - LLM, Prompt Engineering, LangChain, RAG
 - PyTorch, TensorFlow
@@ -74,7 +74,7 @@ Unless explicitly requested, never include:
 - Advanced Linear Algebra
 - Full calculus / optimization theory (only the hand-computable basics are included: derivative of simple polynomials, gradient sign)
 
-> Note: **Clustering (K-Means)** and **Calculus/Optimization basics (Derivative, Gradient Descent)** are explicitly part of the scope per the Day 5 roadmap (tính tay / hand-computable).
+> Note: **Clustering (K-Means)**, **Calculus/Optimization basics (Derivative, Gradient Descent)** and **CNN/Convolution basics (Kernel/Filter, Convolution, Feature Map, Stride, Padding, Output Size)** are explicitly part of the scope per the roadmap (tính tay / hand-computable, no-calculator MCQ). CNN/Convolution was added to Day 7 by explicit user request.
 
 ## Development Workflow
 

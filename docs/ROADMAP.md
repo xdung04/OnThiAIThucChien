@@ -79,13 +79,16 @@ Organized by **days**, not assessment modules. The 7-day plan maps to the offici
 - [ ] Product Thinking: MVP (definition, purpose, how to design a simple MVP, common interview questions)
 - [ ] Mini Mock (15–20 questions)
 
-## Day 7 — Final Review
+## Day 7 — CNN & Học sâu (cơ bản)
 
-- [ ] Full Mock Exam (60 questions · 90 minutes)
-- [ ] Review weak topics (from mistake history)
-- [ ] Review all Cheat Sheets
-- [ ] Assessment Tips
-- [ ] Rest & confidence check
+- [ ] CNN (Convolutional Neural Network) là gì, dùng cho ảnh
+- [ ] Kernel / Filter
+- [ ] Convolution (nhân từng ô rồi cộng)
+- [ ] Feature Map
+- [ ] Stride
+- [ ] Padding
+- [ ] Output Size: `Output = (Input − Kernel + 2×Padding) / Stride + 1` (tính tay, số nhỏ)
+- [ ] Tất cả ở mức trắc nghiệm không máy tính
 
 ---
 

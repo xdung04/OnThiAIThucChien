@@ -83,13 +83,11 @@ export const DAYS = [
   },
   {
     day: 7,
-    title: 'Ôn tập tổng hợp',
-    sub: 'Chuẩn bị kỳ đánh giá tổng',
+    title: 'CNN & Học sâu (cơ bản)',
+    sub: 'Module C · Kiến thức AI',
     path: '/day/7',
     lessons: [
-      { slug: 'day7-assessment-tips', title: 'Mẹo làm bài', time: '8 phút' },
-      { slug: null, title: 'Tổng hợp công thức', time: 'Ôn tập' },
-      { slug: null, title: 'Ôn điểm yếu', time: 'Ôn tập' },
+      { slug: 'day7-cnn-convolution', title: 'CNN & Phép tích chập', time: '10 phút' },
     ],
     noQuiz: true,
   },

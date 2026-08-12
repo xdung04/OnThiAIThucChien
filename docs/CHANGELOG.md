@@ -2,6 +2,20 @@
 
 All notable project updates are tracked here.
 
+## [0.4.0] — 2026-08-12 — Replaced Day 7 with basic CNN & Convolution
+
+### Added
+- **New Day 7 lesson**: `day7-cnn-convolution` (10-section template, Vietnamese) covering CNN / Convolution, Kernel/Filter, Convolution operation, Feature Map, Stride, Padding, and hand-computed Output Size — basic level for no-calculator multiple-choice questions.
+
+### Changed
+- **`day7-assessment-tips`** ("Mẹo làm bài") removed from Day 7.
+- **`src/data/curriculum.js`**: Day 7 retitled to "CNN & Học sâu (cơ bản)" (Module C · Kiến thức AI); now lists a single lesson (`day7-cnn-convolution`) with no quiz (`noQuiz: true`); the non-linked entries "Tổng hợp công thức" / "Ôn điểm yếu" were removed.
+
+### Docs
+- `docs/PROJECT_RULES.md` — removed CNN from Forbidden Topics; noted CNN/Convolution basics are now in scope (Day 7, explicit request).
+- `docs/DECISION_LOG.md` — recorded the new CNN/Convolution decision.
+- `docs/ROADMAP.md` — Day 7 checklist updated to the CNN/Convolution scope.
+
 ## [0.3.1] — 2026-08-11 — Day 5 "dễ nhớ" (mnemonics, flows, examples)
 
 ### Changed
