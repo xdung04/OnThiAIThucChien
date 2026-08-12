@@ -1,359 +1,406 @@
-// Ôn tập tự luận — Pandas (20 câu) · tính tay, không máy tính.
-// Mức độ: trên cơ bản — đọc code, phối hợp loc/iloc, groupby, merge.
+// Ôn tập tự luận — Pandas (20 bài) · kiểu LeetCode (viết code), tính tay.
+// Mỗi bài: đề bài + hàm cần viết (signature) + ví dụ input/output + lời giải mẫu.
 export default {
   id: 'pandas',
   label: 'Pandas',
   order: 2,
-  desc: '20 câu · đọc code & tính tay',
+  desc: '20 bài · viết code · tính tay',
   questions: [
     {
-      id: 'pd-e01',
+      id: 'pd-l01',
       section: 'pandas',
-      topic: 'Series: label vs vị trí',
+      topic: 'Filter boolean',
       difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra gì?',
-      code: `import pandas as pd
-s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
-print(s['b'], s.iloc[1])`,
-      answerText: '20 20',
-      steps: [
-        's["b"] là truy cập theo NHÃN (label) → phần tử ở index b = 20.',
-        's.iloc[1] là truy cập theo VỊ TRÍ số nguyên → phần tử thứ 2 = 20.',
-        'Ở đây nhãn và vị trí trùng nhau nên cùng ra 20.',
+      problem: 'Write a function returning only the rows whose value in column `col` is greater than `t`.',
+      signature: 'def filter_above(df, col, t):',
+      examples: [
+        { input: 'filter_above(df, "score", 6)  # score = [7, 5, 8]', output: 'chỉ giữ 2 hàng score 7 và 8' },
       ],
-      tip: 'Đảo ngược thử: nếu index là [10, 20, 30] thì s[20] (label) và s.iloc[1] (vị trí) sẽ khác nhau.',
+      constraints: 'Chỉ dùng boolean mask, không dùng vòng lặp.',
+      answerCode: `def filter_above(df, col, t):
+    return df[df[col] > t]`,
+      steps: [
+        'df[col] > t tạo boolean Series theo từng hàng.',
+        'df[mask] giữ lại đúng các hàng có mask True.',
+      ],
+      edgeCases: 'Kết quả vẫn là DataFrame (có thể rỗng), không phải Series.',
+      tip: 'Lọc bằng mask là cách chuẩn của pandas — không bao giờ dùng vòng lặp.',
     },
     {
-      id: 'pd-e02',
+      id: 'pd-l02',
       section: 'pandas',
-      topic: 'loc slicing bao phải',
+      topic: 'Đếm theo điều kiện',
       difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-s = pd.Series([10, 20, 30, 40], index=['a', 'b', 'c', 'd'])
-print(s.loc['b':'c'].sum())`,
-      answerText: '50',
-      steps: [
-        'loc theo nhãn KHÁC slicing thường: vế phải được BAO GỒM.',
-        's.loc["b":"c"] = 2 phần tử: 20 và 30.',
-        'Tổng = 20 + 30 = 50.',
+      problem: 'Write a function counting how many rows have column `col` equal to `val`.',
+      signature: 'def count_matches(df, col, val):',
+      examples: [
+        { input: 'count_matches(df, "city", "HN")  # city = [HN, HCM, HN]', output: '2' },
       ],
-      tip: 'Nhớ nhanh: loc = cận phải lấy kín (inclusive); iloc = kiểu Python thường (exclusive).',
+      constraints: 'Trả về số nguyên.',
+      answerCode: `def count_matches(df, col, val):
+    return (df[col] == val).sum()`,
+      steps: [
+        'df[col] == val tạo boolean Series.',
+        '.sum() đếm số True (True tính như 1).',
+      ],
+      edgeCases: 'Nếu không có hàng nào khớp → trả 0.',
+      tip: 'Cách đếm "có bao nhiêu dòng thoả điều kiện" phổ biến nhất trong đề.',
     },
     {
-      id: 'pd-e03',
+      id: 'pd-l03',
       section: 'pandas',
-      topic: 'iloc khi index không phải số',
+      topic: 'Mean bỏ NaN',
       difficulty: 'Khó',
-      question:
-        'Đoạn code sau in ra giá trị nào? Nếu viết s[2] thay vì s.iloc[2] thì kết quả khác không?',
-      code: `import pandas as pd
-s = pd.Series([5, 10, 15], index=[1, 2, 3])
-print(s.iloc[2])`,
-      answerText: '15. Có — s[2] trả 10 (theo nhãn 2), còn s.iloc[2] trả 15 (vị trí thứ 3).',
-      steps: [
-        's.iloc[2] luôn là phần tử ở vị trí index 2 của dãy (phần tử thứ 3) = 15.',
-        's[2] ưu tiên truy cập theo nhãn khi index là số → nhãn 2 = 10.',
-        'Đây là điểm dễ nhầm nhất giữa hai cách lấy phần tử.',
+      problem: 'Write a function returning the mean of column `col`, ignoring missing values (NaN).',
+      signature: 'def col_mean(df, col):',
+      examples: [
+        { input: 'col_mean(df, "age")  # age = [20, NaN, 30, NaN]', output: '25.0' },
       ],
-      tip: 'Khi index là số: s[2] (label) và s.iloc[2] (vị trí) cho kết quả KHÁC nhau — đọc kỹ đề.',
+      constraints: 'Số nhỏ, dễ tính tay.',
+      answerCode: `def col_mean(df, col):
+    return df[col].mean()`,
+      steps: [
+        '.mean() của pandas tự BỎ QUA NaN.',
+        '(20 + 30) / 2 = 25.0 (không chia cho 4).',
+      ],
+      edgeCases: 'Nếu toàn cột là NaN, mean() trả NaN (không báo lỗi).',
+      tip: 'mean/median của pandas bỏ NaN mặc định — bẫy hay gặp khi tính tay.',
     },
     {
-      id: 'pd-e04',
-      section: 'pandas',
-      topic: 'describe + loc',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'age': [20, 30, 40, 50]})
-print(df.describe().loc['mean', 'age'])`,
-      answerText: '35.0',
-      steps: [
-        'df.describe() tạo bảng thống kê: count, mean, std, min, 25%, 50%, 75%, max.',
-        'loc["mean", "age"] lấy ô giao giữa hàng mean và cột age.',
-        'mean = (20+30+40+50) / 4 = 35.0.',
-      ],
-      tip: 'describe() trả về một DataFrame nên loc 2 chiều [hàng, cột] hoạt động bình thường.',
-    },
-    {
-      id: 'pd-e05',
-      section: 'pandas',
-      topic: 'Filter nhiều điều kiện',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'city': ['HN', 'HCM', 'DN', 'HN'], 'sales': [10, 20, 30, 40]})
-print(df[(df.city == 'HN') & (df.sales > 15)]['sales'].sum())`,
-      answerText: '40',
-      steps: [
-        'Điều kiện 1: city == "HN" → các hàng 0 và 3.',
-        'Điều kiện 2: sales > 15 → trong 2 hàng HN chỉ hàng 3 (sales=40) thoả (hàng 0 sales=10).',
-        'Lấy cột sales của hàng 3 rồi sum → 40.',
-      ],
-      tip: 'Nhớ dấu ngoặc quanh mỗi điều kiện khi dùng & — && không dùng được với boolean Series.',
-    },
-    {
-      id: 'pd-e06',
-      section: 'pandas',
-      topic: 'Filter với isin',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'name': ['A', 'B', 'C', 'D'], 'score': [1, 2, 3, 4]})
-print(df[df.name.isin(['A', 'C'])].score.mean())`,
-      answerText: '2.0',
-      steps: [
-        'isin(["A","C"]) tạo boolean mask đúng ở các hàng name = A hoặc C (hàng 0 và 2).',
-        'Bộ lọc giữ 2 hàng có score = 1 và 3.',
-        'mean = (1 + 3) / 2 = 2.0.',
-      ],
-      tip: 'isin thay cho nhiều điều kiện == nối bằng dấu | — gọn và ít sai hơn.',
-    },
-    {
-      id: 'pd-e07',
+      id: 'pd-l04',
       section: 'pandas',
       topic: 'groupby + sum',
       difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'grp': ['x', 'y', 'x', 'y'], 'val': [1, 2, 3, 4]})
-print(df.groupby('grp').val.sum().loc['y'])`,
-      answerText: '6',
-      steps: [
-        'Gom hàng theo grp: nhóm x = [1, 3], nhóm y = [2, 4].',
-        'sum từng nhóm: x → 4, y → 6.',
-        'Kết quả là Series index grp; loc["y"] lấy 6.',
+      problem: 'Write a function grouping by column `key` and returning the SUM of column `val` for each group.',
+      signature: 'def group_sum(df, key, val):',
+      examples: [
+        { input: 'group_sum(df, "team", "pts")  # team=[a, b, a], pts=[3, 5, 7]', output: 'a → 10, b → 5' },
       ],
-      tip: 'groupby(...).col.method() trả về Series có index là giá trị cột nhóm.',
+      constraints: 'Trả về Series, index là giá trị cột key.',
+      answerCode: `def group_sum(df, key, val):
+    return df.groupby(key)[val].sum()`,
+      steps: [
+        'groupby(key) gom các hàng có cùng giá trị key.',
+        '[val].sum() tính tổng val trong từng nhóm: a=3+7=10, b=5.',
+      ],
+      edgeCases: 'Index của kết quả là các giá trị của cột key.',
+      tip: 'groupby(...)[col].method() là khuôn mẫu cực kỳ phổ biến.',
     },
     {
-      id: 'pd-e08',
+      id: 'pd-l05',
       section: 'pandas',
       topic: 'groupby + mean',
       difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra kết quả nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'grp': ['x', 'x', 'y'], 'val': [10, 20, 30]})
-print(df.groupby('grp').val.mean())`,
-      answerText: 'Series: x → 15.0, y → 30.0',
-      steps: [
-        'Nhóm x có [10, 20] → mean = 15.0.',
-        'Nhóm y có [30] → mean = 30.0.',
-        'Index kết quả là grp; giá trị in dạng float.',
+      problem: 'Write a function grouping by column `key` and returning the MEAN of column `val` for each group.',
+      signature: 'def group_mean(df, key, val):',
+      examples: [
+        { input: 'group_mean(df, "grp", "v")  # grp=[x, x, y], v=[10, 20, 30]', output: 'x → 15.0, y → 30.0' },
       ],
-      tip: 'mean luôn trả float — dù số nguyên vẫn ra 15.0 chứ không phải 15.',
+      constraints: 'Trả về Series; mean luôn là float.',
+      answerCode: `def group_mean(df, key, val):
+    return df.groupby(key)[val].mean()`,
+      steps: [
+        'Nhóm x = [10, 20] → mean 15.0; nhóm y = [30] → 30.0.',
+      ],
+      edgeCases: 'mean trả float — nhóm 1 phần tử vẫn ra dạng 30.0.',
+      tip: 'So với group_sum (np-l04) để nhớ sự khác biệt sum vs mean.',
     },
     {
-      id: 'pd-e09',
-      section: 'pandas',
-      topic: 'groupby + agg nhiều phép',
-      difficulty: 'Khó',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'grp': ['p', 'p', 'q'], 'v': [1, 2, 6]})
-r = df.groupby('grp').agg({'v': ['sum', 'count']})
-print(r.loc['p', ('v', 'sum')])`,
-      answerText: '3',
-      steps: [
-        'agg({"v": ["sum", "count"]}) tạo cột đa chỉ số (v, sum) và (v, count).',
-        'Nhóm p có 2 giá trị 1 và 2.',
-        'r.loc["p", ("v", "sum")] = 1 + 2 = 3.',
-      ],
-      tip: 'Khi agg dùng list, cột kết quả trở thành MultiIndex (cột gốc, phép tính) — phải truyền theo tuple.',
-    },
-    {
-      id: 'pd-e10',
-      section: 'pandas',
-      topic: 'apply hàm tự định nghĩa',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'x': [1, 2, 3]})
-print(df.x.apply(lambda v: v * v + v).sum())`,
-      answerText: '20',
-      steps: [
-        'apply áp dụng hàm cho từng phần tử: v*v + v.',
-        '1 → 2; 2 → 6; 3 → 12.',
-        'Tổng = 2 + 6 + 12 = 20.',
-      ],
-      tip: 'Viết vài số nhỏ ra nháp trước khi đoán — apply lambda chạy từng phần tử, dễ nhầm với phép vector.',
-    },
-    {
-      id: 'pd-e11',
-      section: 'pandas',
-      topic: 'map + fillna',
-      difficulty: 'Khó',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'code': ['a', 'b', 'c']})
-m = {'a': 1, 'b': 2}
-print(df.code.map(m).fillna(0).sum())`,
-      answerText: '3',
-      steps: [
-        'map(m) thay giá trị theo dict: a → 1, b → 2.',
-        'c không có trong dict → trở thành NaN.',
-        'fillna(0) đổi NaN thành 0 → tổng = 1 + 2 + 0 = 3.',
-      ],
-      tip: 'map(dict) với giá trị không nằm trong dict sẽ ra NaN — phải fillna trước khi tính.',
-    },
-    {
-      id: 'pd-e12',
-      section: 'pandas',
-      topic: 'mean theo hàng',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'a': [2, 4], 'b': [6, 8]})
-print(df.mean(axis=1).sum())`,
-      answerText: '10.0',
-      steps: [
-        'axis=1 → trung bình theo HÀNG (mỗi hàng một giá trị).',
-        'Hàng 0: (2+6)/2 = 4.0; Hàng 1: (4+8)/2 = 6.0.',
-        'Tổng = 4 + 6 = 10.0.',
-      ],
-      tip: 'Quy tắc axis giống NumPy: axis=1 là ngang (mỗi hàng) → kết quả có chiều dài = số hàng.',
-    },
-    {
-      id: 'pd-e13',
-      section: 'pandas',
-      topic: 'set_index + loc',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'id': [1, 2], 'v': [10, 20]})
-print(df.set_index('id').loc[2, 'v'])`,
-      answerText: '20',
-      steps: [
-        'set_index("id") biến cột id thành index của DataFrame.',
-        'loc[2] truy cập theo NHÃN index id = 2.',
-        'Lấy cột v → 20.',
-      ],
-      tip: 'Sau set_index, truy cập theo NHÃN của cột vừa đặt làm index chứ không phải vị trí.',
-    },
-    {
-      id: 'pd-e14',
-      section: 'pandas',
-      topic: 'rename + iloc',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'a': [1, 2], 'b': [3, 4]})
-df = df.rename(columns={'a': 'x'})
-print(df['x'].iloc[1] + df['b'].iloc[0])`,
-      answerText: '5',
-      steps: [
-        'rename(columns={"a": "x"}) đổi tên cột a thành x.',
-        'df["x"] = [1, 2] → iloc[1] = 2.',
-        'df["b"] = [3, 4] → iloc[0] = 3. Tổng = 5.',
-      ],
-      tip: 'rename chỉ đổi tên cột, dữ liệu và thứ tự giữ nguyên — vẫn dùng iloc theo vị trí.',
-    },
-    {
-      id: 'pd-e15',
-      section: 'pandas',
-      topic: 'at vs iloc',
-      difficulty: 'Khó',
-      question: 'Đoạn code sau in ra gì?',
-      code: `import pandas as pd
-df = pd.DataFrame({'v': [7, 8, 9]}, index=[10, 20, 30])
-print(df.at[20, 'v'], df.iloc[2]['v'])`,
-      answerText: '8 9',
-      steps: [
-        'at[20, "v"] truy cập theo NHÃN hàng 20 và cột v → 8.',
-        'iloc[2] truy cập theo VỊ TRÍ hàng thứ 3 (index 2) → 9.',
-        'Kết quả 8 9.',
-      ],
-      tip: 'at dùng nhãn (label), iloc dùng vị trí — với index [10,20,30] hai cách này khác nhau rõ rệt.',
-    },
-    {
-      id: 'pd-e16',
-      section: 'pandas',
-      topic: 'drop_duplicates',
-      difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra shape nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'k': ['a', 'b', 'a', 'c', 'b'], 'v': [1, 2, 3, 4, 5]})
-print(df.drop_duplicates('k').shape)`,
-      answerText: '(3, 2)',
-      steps: [
-        'drop_duplicates("k") bỏ các hàng trùng giá trị ở cột k, giữ lần xuất hiện đầu.',
-        'Các giá trị k duy nhất: a, b, c → còn 3 hàng.',
-        'Vẫn giữ 2 cột (k, v) → shape (3, 2).',
-      ],
-      tip: 'drop_duplicates mặc định keep="first" — chỉ bỏ hàng trùng ở cột chỉ định, không làm mất cột.',
-    },
-    {
-      id: 'pd-e17',
+      id: 'pd-l06',
       section: 'pandas',
       topic: 'fillna bằng mean',
       difficulty: 'Khó',
-      question: 'Đoạn code sau in ra kết quả nào?',
-      code: `import pandas as pd
-import numpy as np
-df = pd.DataFrame({'v': [1.0, np.nan, 3.0, np.nan]})
-print(df.v.fillna(df.v.mean()).sum())`,
-      answerText: '8.0',
-      steps: [
-        'mean của cột v BỎ QUA NaN: (1 + 3) / 2 = 2.0.',
-        'fillna(2.0) thay 2 ô NaN bằng 2.0 → [1, 2, 3, 2].',
-        'Tổng = 1 + 2 + 3 + 2 = 8.0.',
+      problem: 'Write a function replacing every NaN of column `col` with the MEAN of that column, then returning the updated column.',
+      signature: 'def fillna_with_mean(df, col):',
+      examples: [
+        { input: 'fillna_with_mean(df, "age")  # age = [20, NaN, 40]', output: '[20.0, 30.0, 40.0]' },
       ],
-      tip: 'mean/median của pandas BỎ QUA NaN theo mặc định — đây là bẫy hay gặp khi tính tay.',
+      constraints: 'Mean tính bỏ qua NaN.',
+      answerCode: `def fillna_with_mean(df, col):
+    return df[col].fillna(df[col].mean())`,
+      steps: [
+        'mean (bỏ NaN) = (20 + 40) / 2 = 30.0.',
+        'fillna(30.0) thay đúng các ô NaN bằng 30.0.',
+      ],
+      edgeCases: 'fillna trả về bản sao — muốn sửa gốc phải gán lại (hoặc inplace=True).',
+      tip: 'Đề hay ghép fillna với mean/median — nhớ mean bỏ NaN trước khi dùng làm giá trị điền.',
     },
     {
-      id: 'pd-e18',
+      id: 'pd-l07',
       section: 'pandas',
-      topic: 'sort_values nhiều cột',
-      difficulty: 'Khó',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-df = pd.DataFrame({'team': ['a', 'b', 'a', 'b'], 'pts': [10, 5, 7, 9]})
-df = df.sort_values(['team', 'pts'], ascending=[True, False])
-print(df.iloc[1]['pts'])`,
-      answerText: '7',
-      steps: [
-        'Sắp team tăng dần (a trước b), trong cùng team sắp pts giảm dần.',
-        'Team a (pts 10, 7) đứng trước team b (pts 9, 5).',
-        'Thứ tự sau sort: a/10, a/7, b/9, b/5 → iloc[1] = a/7 → pts = 7.',
-      ],
-      tip: 'ascending=[True, False] áp dụng theo đúng thứ tự cột trong list — đọc cẩn thận.',
-    },
-    {
-      id: 'pd-e19',
-      section: 'pandas',
-      topic: 'concat',
+      topic: 'drop_duplicates',
       difficulty: 'Trung bình',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-d1 = pd.DataFrame({'x': [1, 2]})
-d2 = pd.DataFrame({'x': [3, 4]})
-print(pd.concat([d1, d2]).x.sum())`,
-      answerText: '10',
-      steps: [
-        'concat xếp chồng hai DataFrame theo hàng (mặc định axis=0).',
-        'Kết quả cột x = [1, 2, 3, 4].',
-        'Tổng = 10.',
+      problem: 'Write a function returning the DataFrame after removing duplicate rows based on column `col`, keeping the FIRST occurrence.',
+      signature: 'def dedup(df, col):',
+      examples: [
+        { input: 'dedup(df, "id")  # id = [1, 2, 1, 3]', output: 'giữ 3 hàng (id 1, 2, 3)' },
       ],
-      tip: 'concat dọc = thêm hàng (axis=0), concat ngang = thêm cột (axis=1).',
+      constraints: 'Chỉ dựa trên một cột để xác định trùng lặp.',
+      answerCode: `def dedup(df, col):
+    return df.drop_duplicates(col)`,
+      steps: [
+        'drop_duplicates(col) bỏ các hàng trùng giá trị ở cột đó, giữ lần đầu.',
+        'id 1 xuất hiện 2 lần → chỉ giữ hàng đầu.',
+      ],
+      edgeCases: 'Mặc định keep="first"; dùng keep="last" nếu muốn giữ lần cuối.',
+      tip: 'drop_duplicates chỉ xoá hàng, không làm mất cột.',
     },
     {
-      id: 'pd-e20',
+      id: 'pd-l08',
       section: 'pandas',
-      topic: 'merge inner + value_counts',
-      difficulty: 'Khó',
-      question: 'Đoạn code sau in ra giá trị nào?',
-      code: `import pandas as pd
-a = pd.DataFrame({'id': [1, 2, 3], 'name': ['U1', 'U2', 'U3']})
-b = pd.DataFrame({'id': [2, 3, 3], 'score': [90, 80, 70]})
-m = pd.merge(a, b, on='id')
-print(m.name.value_counts().loc['U3'])`,
-      answerText: '2',
-      steps: [
-        'merge inner trên id: mỗi hàng của b nối với tên tương ứng trong a.',
-        'id 2 → U2; id 3 → U3 (2 bản ghi vì b có 2 dòng id = 3).',
-        'name.value_counts(): U3 xuất hiện 2 lần → 2.',
+      topic: 'sort_values',
+      difficulty: 'Trung bình',
+      problem: 'Write a function returning the DataFrame sorted by column `col` in DESCENDING order.',
+      signature: 'def sort_desc(df, col):',
+      examples: [
+        { input: 'sort_desc(df, "score")  # score = [7, 9, 5]', output: 'hàng score 9, 7, 5' },
       ],
-      tip: 'inner merge giữ id có ở CẢ HAI bảng; nếu bên phải trùng id thì hàng nhân đôi.',
+      constraints: 'Chỉ sắp một cột giảm dần.',
+      answerCode: `def sort_desc(df, col):
+    return df.sort_values(col, ascending=False)`,
+      steps: [
+        'sort_values(col, ascending=False) sắp theo cột giảm dần.',
+      ],
+      edgeCases: 'sort_values trả bản sao; muốn sửa gốc dùng inplace=True.',
+      tip: 'ascending mặc định True (tăng dần) — nhớ bật False khi cần giảm.',
+    },
+    {
+      id: 'pd-l09',
+      section: 'pandas',
+      topic: 'rename cột',
+      difficulty: 'Trung bình',
+      problem: 'Write a function renaming columns according to a dictionary `mapping` (old → new).',
+      signature: 'def rename_cols(df, mapping):',
+      examples: [
+        { input: 'rename_cols(df, {"a": "x"})', output: 'cột a đổi thành x' },
+      ],
+      constraints: 'mapping có dạng {tên cũ: tên mới}.',
+      answerCode: `def rename_cols(df, mapping):
+    return df.rename(columns=mapping)`,
+      steps: [
+        'rename(columns=mapping) đổi tên các cột có trong mapping.',
+      ],
+      edgeCases: 'rename trả bản sao — không sửa df gốc trừ khi gán lại.',
+      tip: 'Phân biệt rename (đổi tên) với thay đổi dữ liệu bên trong.',
+    },
+    {
+      id: 'pd-l10',
+      section: 'pandas',
+      topic: 'Thêm cột tính toán',
+      difficulty: 'Trung bình',
+      problem: 'Write a function adding a new column `new_col` equal to column `col` multiplied by 0.1.',
+      signature: 'def add_tax_col(df, col, new_col):',
+      examples: [
+        { input: 'add_tax_col(df, "price", "tax")  # price = [100, 200]', output: 'tax = [10.0, 20.0]' },
+      ],
+      constraints: 'Thao tác trên toàn cột, không dùng vòng lặp.',
+      answerCode: `def add_tax_col(df, col, new_col):
+    df[new_col] = df[col] * 0.1
+    return df`,
+      steps: [
+        'Gán df[new_col] bằng biểu thức trên toàn cột col.',
+      ],
+      edgeCases: 'Thêm cột trực tiếp vào df hiện tại (sửa gốc).',
+      tip: 'Phép toán trên Series pandas là vector hoá — không cần lặp.',
+    },
+    {
+      id: 'pd-l11',
+      section: 'pandas',
+      topic: 'value_counts',
+      difficulty: 'Trung bình',
+      problem: 'Write a function returning the count of each distinct value in column `col`, ordered from most to least frequent.',
+      signature: 'def category_counts(df, col):',
+      examples: [
+        { input: 'category_counts(df, "city")  # city = [HN, HCM, HN]', output: 'HN → 2, HCM → 1' },
+      ],
+      constraints: 'Trả về Series.',
+      answerCode: `def category_counts(df, col):
+    return df[col].value_counts()`,
+      steps: [
+        'value_counts() đếm tần suất mỗi giá trị.',
+        'Tự động sắp giảm dần theo tần suất.',
+      ],
+      edgeCases: 'Kết quả là Series, index là các giá trị, giá trị số là tần suất.',
+      tip: 'value_counts là câu trả lời chuẩn cho "đếm theo loại" (category).',
+    },
+    {
+      id: 'pd-l12',
+      section: 'pandas',
+      topic: 'apply',
+      difficulty: 'Trung bình',
+      problem: 'Write a function applying a function `f` to every element of column `col` and returning the resulting Series.',
+      signature: 'def apply_fun(df, col, f):',
+      examples: [
+        { input: 'apply_fun(df, "x", lambda v: v * 10)  # x = [1, 2]', output: '[10, 20]' },
+      ],
+      constraints: 'Dùng Series.apply, không dùng vòng lặp.',
+      answerCode: `def apply_fun(df, col, f):
+    return df[col].apply(f)`,
+      steps: [
+        'Series.apply(f) chạy hàm f trên từng phần tử của cột.',
+      ],
+      edgeCases: 'Phân biệt apply (cho từng phần tử) với các phép toán vector hoá.',
+      tip: 'Cứ nhớ: cần biến đổi không chuẩn hoá được thì dùng .apply().',
+    },
+    {
+      id: 'pd-l13',
+      section: 'pandas',
+      topic: 'map theo dict',
+      difficulty: 'Khó',
+      problem: 'Write a function replacing values of column `col` using dictionary `m`; values NOT in `m` become NaN.',
+      signature: 'def map_values(df, col, m):',
+      examples: [
+        { input: 'map_values(df, "code", {"a": 1, "b": 2})  # code = [a, b, c]', output: '[1, 2, NaN]' },
+      ],
+      constraints: 'Nguyên tắc map dict có sẵn.',
+      answerCode: `def map_values(df, col, m):
+    return df[col].map(m)`,
+      steps: [
+        'Series.map(dict) thay mỗi phần tử theo dict.',
+        '"c" không có trong dict → trở thành NaN.',
+      ],
+      edgeCases: 'map(dict) sinh NaN cho giá trị không có khóa — muốn khác phải fillna sau.',
+      tip: 'Phân biệt map (thay theo ánh xạ/từng phần tử) với replace.',
+    },
+    {
+      id: 'pd-l14',
+      section: 'pandas',
+      topic: 'concat theo hàng',
+      difficulty: 'Trung bình',
+      problem: 'Write a function stacking two DataFrames `d1` and `d2` vertically (by rows) and resetting the index.',
+      signature: 'def concat_rows(d1, d2):',
+      examples: [
+        { input: 'concat_rows(d1, d2)  # d1 có 2 hàng, d2 có 1 hàng', output: '3 hàng, index 0..2' },
+      ],
+      constraints: 'Cùng các cột (hoặc chấp nhận NaN cho cột thiếu).',
+      answerCode: `def concat_rows(d1, d2):
+    return pd.concat([d1, d2], ignore_index=True)`,
+      steps: [
+        'pd.concat theo axis=0 (mặc định) xếp chồng các hàng.',
+        'ignore_index=True gán lại index liên tục 0, 1, 2.',
+      ],
+      edgeCases: 'Không set ignore_index thì index bị lặp lại từ hai bảng.',
+      tip: 'concat nhận một DANH SÁCH các DataFrame.',
+    },
+    {
+      id: 'pd-l15',
+      section: 'pandas',
+      topic: 'merge',
+      difficulty: 'Khó',
+      problem: 'Write a function joining two DataFrames `a` and `b` on their common column `on` (default inner join).',
+      signature: 'def merge_on(a, b, on):',
+      examples: [
+        { input: 'merge_on(a, b, "id")  # nối theo cột id', output: 'bảng nối (inner mặc định)' },
+      ],
+      constraints: 'Cả hai bảng đều có cột `on`.',
+      answerCode: `def merge_on(a, b, on):
+    return pd.merge(a, b, on=on)`,
+      steps: [
+        'pd.merge mặc định là inner join — chỉ giữ id có ở cả hai bảng.',
+        'Nếu bên phải trùng id, hàng sẽ nhân đôi tương ứng.',
+      ],
+      edgeCases: 'Mặc định how="inner"; dùng how="left"/"outer" cho join khác.',
+      tip: 'Khác concat (xếp chồng) — merge nối theo KHÓA giữa các hàng.',
+    },
+    {
+      id: 'pd-l16',
+      section: 'pandas',
+      topic: 'iloc theo vị trí',
+      difficulty: 'Trung bình',
+      problem: 'Write a function returning the row at POSITION `i` (regardless of the index labels).',
+      signature: 'def get_row(df, i):',
+      examples: [
+        { input: 'get_row(df, 2)  # df có index [10, 20, 30]', output: 'hàng thứ 3 (vị trí 2)' },
+      ],
+      constraints: '0 ≤ i < số hàng.',
+      answerCode: `def get_row(df, i):
+    return df.iloc[i]`,
+      steps: [
+        'iloc[i] truy cập theo VỊ TRÍ số nguyên, không quan tâm index label.',
+        'i = 2 luôn là hàng thứ 3, dù index là [10, 20, 30].',
+      ],
+      edgeCases: 'iloc bắt đầu từ 0.',
+      tip: 'iloc = integer-location; loc = label-location (xem câu sau).',
+    },
+    {
+      id: 'pd-l17',
+      section: 'pandas',
+      topic: 'loc theo nhãn',
+      difficulty: 'Khó',
+      problem: 'Write a function returning the row whose index label equals `label`.',
+      signature: 'def get_label(df, label):',
+      examples: [
+        { input: 'get_label(df, "b")  # index = [a, b, c]', output: 'hàng có nhãn "b"' },
+      ],
+      constraints: 'label phải tồn tại trong index.',
+      answerCode: `def get_label(df, label):
+    return df.loc[label]`,
+      steps: [
+        'loc[label] truy cập theo NHÃN index.',
+      ],
+      edgeCases: 'Nếu index là số, loc[2] lấy nhãn 2 còn iloc[2] lấy vị trí 2 — kết quả có thể khác.',
+      tip: 'Cặp bài "tra cứu": loc theo nhãn, iloc theo vị trí.',
+    },
+    {
+      id: 'pd-l18',
+      section: 'pandas',
+      topic: 'Filter hai điều kiện',
+      difficulty: 'Khó',
+      problem: 'Write a function returning rows where `c1 == v1` AND `c2 > t`.',
+      signature: 'def filter_two(df, c1, v1, c2, t):',
+      examples: [
+        { input: 'filter_two(df, "city", "HN", "sales", 15)', output: 'chỉ giữ HN có sales > 15' },
+      ],
+      constraints: 'Dùng & để kết hợp hai mask boolean.',
+      answerCode: `def filter_two(df, c1, v1, c2, t):
+    return df[(df[c1] == v1) & (df[c2] > t)]`,
+      steps: [
+        'Tạo hai boolean mask.',
+        'Kết hợp bằng & (mỗi điều kiện phải có ngoặc).',
+        'df[mask] giữ các hàng thoả cả hai.',
+      ],
+      edgeCases: 'Không dùng `and` với Series boolean — phải dùng & kèm ngoặc.',
+      tip: 'Muốn HOẶC (OR) dùng | ; muốn phủ định dùng ~.',
+    },
+    {
+      id: 'pd-l19',
+      section: 'pandas',
+      topic: 'Clip outlier',
+      difficulty: 'Khó',
+      problem: 'Write a function clipping column `col` so values below `lo` become `lo` and values above `hi` become `hi`.',
+      signature: 'def clip_col(df, col, lo, hi):',
+      examples: [
+        { input: 'clip_col(df, "x", 1, 4)  # x = [0, 3, 5]', output: '[1, 3, 4]' },
+      ],
+      constraints: 'lo ≤ hi.',
+      answerCode: `def clip_col(df, col, lo, hi):
+    return df[col].clip(lo, hi)`,
+      steps: [
+        'Series.clip(lo, hi) kẹp mọi giá trị trong khoảng [lo, hi].',
+        '0 → 1 (dưới lo); 5 → 4 (trên hi); 3 giữ nguyên.',
+      ],
+      edgeCases: 'Giá trị nằm trong khoảng không bị thay đổi.',
+      tip: 'clip thường dùng để xử lý outlier trong preprocessing.',
+    },
+    {
+      id: 'pd-l20',
+      section: 'pandas',
+      topic: 'Tỉ lệ phần trăm',
+      difficulty: 'Khó',
+      problem: 'Write a function returning the RELATIVE frequency (0–1) of each distinct value in column `col`.',
+      signature: 'def value_share(df, col):',
+      examples: [
+        { input: 'value_share(df, "city")  # city = [HN, HCM, HN]', output: 'HN ≈ 0.667, HCM ≈ 0.333' },
+      ],
+      constraints: 'Tổng các tỉ lệ bằng 1.',
+      answerCode: `def value_share(df, col):
+    return df[col].value_counts(normalize=True)`,
+      steps: [
+        'normalize=True chia số lần xuất hiện cho tổng số phần tử.',
+        'HN = 2/3 ≈ 0.667; HCM = 1/3 ≈ 0.333.',
+      ],
+      edgeCases: 'Bỏ normalize=True thì trả về đếm tuyệt đối (xem pd-l11).',
+      tip: 'normalize=True cho xác suất/tỉ lệ thay vì tần suất.',
     },
   ],
 }

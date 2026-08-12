@@ -3,7 +3,9 @@ import { getAllEssaySections } from '../data/essays'
 import { CodeBlock } from '../components/ui'
 
 function EssayCard({ q, index, isOpen, onToggle }) {
-  const isMvp = q.section === 'mvp'
+  // NumPy/Pandas dùng schema "viết code" (answerCode); MVP dùng schema tự luận (answerText).
+  const isCoding = Boolean(q.answerCode)
+
   return (
     <div className="essay-card">
       <div className="quiz-q-top">
@@ -13,27 +15,81 @@ function EssayCard({ q, index, isOpen, onToggle }) {
           {q.difficulty === 'Khó' ? 'Khó' : 'Trung bình'}
         </span>
       </div>
-      <p className="essay-question">{q.question}</p>
-      {q.code && <CodeBlock code={q.code} />}
+
+      <p className="essay-question">{q.problem || q.question}</p>
+
+      {isCoding && (
+        <>
+          {q.signature && (
+            <div className="sig-block">
+              <span className="sig-label">Hàm cần viết</span>
+              <code>{q.signature}</code>
+            </div>
+          )}
+
+          {q.examples && q.examples.length > 0 && (
+            <div className="examples-wrap">
+              {q.examples.map((ex, i) => (
+                <div className="example-block" key={i}>
+                  <div className="example-io">
+                    <span className="io-label">Input</span>
+                    <code>{ex.input}</code>
+                  </div>
+                  <div className="example-io">
+                    <span className="io-label">Output</span>
+                    <code>{ex.output}</code>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {q.constraints && <div className="constraints">📏 Ràng buộc: {q.constraints}</div>}
+
+          <textarea
+            className="code-editor"
+            rows={6}
+            spellCheck={false}
+            placeholder="Viết lời giải của bạn ở đây… (tự luyện — không chấm điểm tự động)"
+          />
+        </>
+      )}
 
       <button className={`btn ${isOpen ? 'btn-primary' : 'btn-outline'} reveal-btn`} onClick={onToggle}>
-        {isOpen ? '🙈 Ẩn đáp án' : '✍ Xem đáp án'}
+        {isOpen ? '🙈 Ẩn đáp án' : isCoding ? '✍ Xem lời giải' : '✍ Xem đáp án'}
       </button>
 
       {isOpen && (
         <div className="answer-box">
-          <div className="answer-title">✅ Đáp án mẫu</div>
-          <p className="answer-text">{q.answerText}</p>
-          {q.steps && q.steps.length > 0 && (
+          {isCoding ? (
             <>
-              <div className="howto-title">{isMvp ? '🗂 Khung trả lời gợi ý' : '🔎 Cách làm từng bước'}</div>
+              <div className="answer-title">✅ Lời giải mẫu</div>
+              <CodeBlock code={q.answerCode} />
+              <div className="howto-title">🔎 Giải thích</div>
               <ol className="answer-steps">
                 {q.steps.map((st, i) => (
                   <li key={i}>{st}</li>
                 ))}
               </ol>
             </>
+          ) : (
+            <>
+              <div className="answer-title">✅ Đáp án mẫu</div>
+              <p className="answer-text">{q.answerText}</p>
+              {q.steps && q.steps.length > 0 && (
+                <>
+                  <div className="howto-title">🗂 Khung trả lời gợi ý</div>
+                  <ol className="answer-steps">
+                    {q.steps.map((st, i) => (
+                      <li key={i}>{st}</li>
+                    ))}
+                  </ol>
+                </>
+              )}
+            </>
           )}
+
+          {q.edgeCases && <div className="edge-box">⚠ Trường hợp biên: {q.edgeCases}</div>}
           {q.tip && <div className="answer-tip">💡 {q.tip}</div>}
         </div>
       )}
@@ -64,8 +120,9 @@ export default function EssayReview() {
     <div>
       <h1 className="page-title">Ôn tập tự luận</h1>
       <p className="page-sub">
-        Đọc đề → tự làm ra giấy → bấm “✍ Xem đáp án” để so với đáp án mẫu và lời giải từng bước. Không
-        chấm điểm tự động — bạn tự chấm theo gợi ý. Số nhỏ, phù hợp để tính tay.
+        NumPy & Pandas là dạng bài lập trình kiểu LeetCode: đọc đề → tự viết code vào ô → bấm
+        “✍ Xem lời giải” để so với code mẫu và giải thích từng bước. MVP là câu tự luận viết đoạn. Số
+        nhỏ, phù hợp để tính tay.
       </p>
 
       <div className="tabs">
@@ -84,15 +141,15 @@ export default function EssayReview() {
         <div className="essay-section">
           <div className="essay-meta">
             <span className="badge badge-tip">{section.desc}</span>
-            <span className="badge">✍ tự luận · tính tay</span>
+            <span className="badge">✍ tự luyện · tự chấm</span>
           </div>
 
           <div className="essay-toolbar">
             <button className="btn btn-teal" onClick={() => revealSectionAll(true)}>
-              👁 Hiện tất cả đáp án
+              👁 Hiện tất cả lời giải
             </button>
             <button className="btn btn-outline" onClick={() => revealSectionAll(false)}>
-              🙈 Ẩn tất cả đáp án
+              🙈 Ẩn tất cả lời giải
             </button>
           </div>
 

@@ -6,11 +6,12 @@ All notable project updates are tracked here.
 
 ### Added
 - **New tab "Ôn tập tự luận"** (`/essay-review`) với 3 mục và nút tabs:
-  - **NumPy — 30 câu** (`src/data/essays/numpy.js`): đọc code & tính tay, trên cơ bản — reshape/slicing 2D & 3D, index âm, broadcasting, `np.dot` vs `*`, axis (sum/mean/max/argmax, keepdims), boolean mask / `np.where` / fancy indexing, `astype`/`//`, `linspace`/`arange`, `np.linalg` (det, inv, eig), câu tổng hợp nhiều khái niệm.
-  - **Pandas — 20 câu** (`src/data/essays/pandas.js`): Series label vs vị trí, `loc`/`iloc`/`at`, filter nhiều điều kiện & `isin`, `groupby` + `agg` (MultiIndex), `apply`/`map`/`fillna`, `set_index`/`rename`, `drop_duplicates`, `sort_values`, `concat`, `merge` + `value_counts`.
-  - **MVP — 7 câu** (`src/data/essays/mvp.js`): tư duy sản phẩm tự luận — feature set, MVP ≠ bản cắt giảm, giả định cần validate, prioritization must-have/nice-to-have, metric (retention/core loop vs vanity metric), pivot vs persevere, case khó MVP cho sản phẩm AI.
-- **Dạng định dạng reveal-answer**: đọc đề → tự làm → bấm "✍ Xem đáp án" xem đáp án mẫu + giải từng bước + mẹo; nút "Hiện tất cả đáp án" / "Ẩn tất cả". Không chấm điểm tự động (tự chấm theo gợi ý). Mỗi câu có `answerText`, `steps[]`, `tip`, độ khó (Trung bình/Khó).
-- **Nuxt data-driven**: registry `src/data/essays.js` (auto-discover bằng `import.meta.glob`), page `src/pages/EssayReview.jsx`, route `/essay-review`, nav item sidebar, quick-nav trên trang chủ, CSS tabs/essay-card/answer-box.
+  - **NumPy — 30 bài** (`src/data/essays/numpy.js`): **dạng bài lập trình kiểu LeetCode** (đề bài + hàm cần viết + ví dụ input/output + ràng buộc) — boolean mask/filter, slicing & copy, reduction theo axis, `np.dot` trọng số, `np.where`, `argmax`, normalize/center, broadcast dòng/cột, transpose/reshape/flatten, vstack/hstack, `np.linalg` (det, inv, trace, eye), linspace, mask 2D, normalize theo hàng.
+  - **Pandas — 20 bài** (`src/data/essays/pandas.js`): **dạng bài lập trình kiểu LeetCode** — filter boolean, đếm theo điều kiện, mean bỏ NaN, groupby sum/mean, fillna, drop_duplicates, sort_values, rename, thêm cột, value_counts (tuyệt đối & theo tỉ lệ), apply, map dict, concat, merge, iloc/loc, filter hai điều kiện, clip.
+  - **MVP — 7 câu** (`src/data/essays/mvp.js`): tư duy sản phẩm **tự luận viết đoạn** — feature set, MVP ≠ bản cắt giảm, giả định cần validate, prioritization must-have/nice-to-have, metric (retention/core loop vs vanity metric), pivot vs persevere, case khó MVP cho sản phẩm AI.
+- **Định dạng trên cơ bản (cạnh tranh) nhưng tính tay**: mọi phép toán số nhỏ, không máy tính.
+- **UI mỗi bài viết code**: hiện đề → signature "Hàm cần viết" → ví dụ Input/Output → ràng buộc → **ô gõ code (textarea mono)** để tự viết lời giải → bấm "✍ Xem lời giải" mở **code mẫu** + giải thích từng bước + trường hợp biên + mẹo. Không chấm điểm tự động. Nút "Hiện tất cả lời giải" / "Ẩn tất cả".
+- **Data-driven**: registry `src/data/essays.js` (auto-discover bằng `import.meta.glob`), page `src/pages/EssayReview.jsx`, route `/essay-review`, nav item sidebar, quick-nav trên trang chủ, CSS tabs/essay-card/code-editor/example-block/answer-box.
 
 ### Docs
 - `docs/DECISION_LOG.md` — ghi quyết định thêm tab tự luận (reveal-answer, không auto-grading).
