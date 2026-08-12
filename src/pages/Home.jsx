@@ -141,6 +141,7 @@ function QuickNav() {
         <Link to="/mock-exams" className="btn btn-primary btn-block">📝 Đề thi thử</Link>
         <Link to="/cheat-sheets" className="btn btn-teal btn-block">📋 Tổng hợp công thức</Link>
         <Link to="/review" className="btn btn-outline btn-block">🔁 Ôn điểm yếu</Link>
+        <Link to="/essay-review" className="btn btn-outline btn-block">✍ Ôn tập tự luận</Link>
         <Link to="/quizzes" className="btn btn-outline btn-block">❌ Ôn lỗi sai</Link>
       </div>
     </div>

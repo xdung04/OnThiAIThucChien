@@ -776,6 +776,138 @@ hr {
   font-weight: 700;
 }
 
+/* ---------- Essay review (tự luận) ---------- */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.tab-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.08);
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+}
+
+.tab-btn.active .tab-count {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.essay-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.essay-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.essay-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.essay-question {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.reveal-btn {
+  margin-top: 0.75rem;
+}
+
+.answer-box {
+  margin-top: 0.85rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--success);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  background: var(--surface-alt);
+}
+
+.answer-title {
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 0.35rem;
+}
+
+.answer-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.howto-title {
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0.85rem 0 0.35rem;
+}
+
+.answer-steps {
+  padding-left: 1.4rem;
+}
+
+.answer-steps li {
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.answer-tip {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(217, 119, 6, 0.12);
+  color: #92400e;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.quiz-q-type.hard {
+  color: var(--danger);
+  background: rgba(220, 38, 38, 0.08);
+}
+
 /* ---------- Responsive ---------- */
 
 .menu-toggle {

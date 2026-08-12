@@ -2,7 +2,18 @@
 
 All notable project updates are tracked here.
 
-## [0.4.0] — 2026-08-12 — Replaced Day 7 with basic CNN & Convolution
+## [0.5.0] — 2026-08-12 — Tab "Ôn tập tự luận" (NumPy · Pandas · MVP)
+
+### Added
+- **New tab "Ôn tập tự luận"** (`/essay-review`) với 3 mục và nút tabs:
+  - **NumPy — 30 câu** (`src/data/essays/numpy.js`): đọc code & tính tay, trên cơ bản — reshape/slicing 2D & 3D, index âm, broadcasting, `np.dot` vs `*`, axis (sum/mean/max/argmax, keepdims), boolean mask / `np.where` / fancy indexing, `astype`/`//`, `linspace`/`arange`, `np.linalg` (det, inv, eig), câu tổng hợp nhiều khái niệm.
+  - **Pandas — 20 câu** (`src/data/essays/pandas.js`): Series label vs vị trí, `loc`/`iloc`/`at`, filter nhiều điều kiện & `isin`, `groupby` + `agg` (MultiIndex), `apply`/`map`/`fillna`, `set_index`/`rename`, `drop_duplicates`, `sort_values`, `concat`, `merge` + `value_counts`.
+  - **MVP — 7 câu** (`src/data/essays/mvp.js`): tư duy sản phẩm tự luận — feature set, MVP ≠ bản cắt giảm, giả định cần validate, prioritization must-have/nice-to-have, metric (retention/core loop vs vanity metric), pivot vs persevere, case khó MVP cho sản phẩm AI.
+- **Dạng định dạng reveal-answer**: đọc đề → tự làm → bấm "✍ Xem đáp án" xem đáp án mẫu + giải từng bước + mẹo; nút "Hiện tất cả đáp án" / "Ẩn tất cả". Không chấm điểm tự động (tự chấm theo gợi ý). Mỗi câu có `answerText`, `steps[]`, `tip`, độ khó (Trung bình/Khó).
+- **Nuxt data-driven**: registry `src/data/essays.js` (auto-discover bằng `import.meta.glob`), page `src/pages/EssayReview.jsx`, route `/essay-review`, nav item sidebar, quick-nav trên trang chủ, CSS tabs/essay-card/answer-box.
+
+### Docs
+- `docs/DECISION_LOG.md` — ghi quyết định thêm tab tự luận (reveal-answer, không auto-grading).
 
 ### Added
 - **New Day 7 lesson**: `day7-cnn-convolution` (10-section template, Vietnamese) covering CNN / Convolution, Kernel/Filter, Convolution operation, Feature Map, Stride, Padding, and hand-computed Output Size — basic level for no-calculator multiple-choice questions.

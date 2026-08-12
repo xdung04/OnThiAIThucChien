@@ -6,6 +6,7 @@ Records every scope and design decision.
 
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-08-12 | Added "Ôn tập tự luận" tab (`/essay-review`) with 3 sections — NumPy (30 câu), Pandas (20 câu), MVP (7 câu) — in reveal-answer format (read → self-think → reveal model answer + steps + tip), no auto-grading, IEEE-level "tính tay" (hand-computable, small numbers, no calculator) | Explicitly requested by user. Complements the MCQ quizzes/exams; exercises are intentionally above the basic quizzes (multi-step, mixed concepts) since the user has an IT background |
 | 2026-08-12 | Added CNN & Convolution basics to Day 7 (Kernel/Filter, Convolution, Feature Map, Stride, Padding, Output Size) — basic, no-calculator MCQ level. Added a 6-question Day 7 quiz `day7-cnn-convolution` (per the project rule that every lesson has a 5–10 question quiz) | Explicitly requested by user; overrides the old Forbidden Topic that excluded CNN. Replaces the old Day 7 assessment-tips lesson; Day 7 now has a single CNN lesson plus quiz |
 | 2026-08-11 | Day 5 deepened + extended (tính tay / no-calculator focus) | User requested Day 5 content go deeper per an "AI Roadmap — mục tiêu thi không dùng máy tính" |
 | 2026-08-11 | Added new Day 5 lessons: Derivative, Gradient Descent, K-Means | Explicitly requested; overrides the old Forbidden Topics that excluded Clustering & Calculus |

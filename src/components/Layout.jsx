@@ -28,6 +28,7 @@ export default function Layout() {
         <div className="nav-label">Tổng quan</div>
         <NavItem to="/" label="Trang chủ" end />
         <NavItem to="/mock-exams" label="Đề thi thử" />
+        <NavItem to="/essay-review" label="Ôn tập tự luận" />
         <NavItem to="/quizzes" label="Ôn lỗi sai" />
       </div>
 

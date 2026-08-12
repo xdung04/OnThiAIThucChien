@@ -10,6 +10,7 @@ import ExamRunner from './pages/ExamRunner'
 import MistakesReview from './pages/MistakesReview'
 import ReviewDashboard from './pages/ReviewDashboard'
 import CheatSheets from './pages/CheatSheets'
+import EssayReview from './pages/EssayReview'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/quizzes" element={<MistakesReview />} />
             <Route path="/review" element={<ReviewDashboard />} />
             <Route path="/cheat-sheets" element={<CheatSheets />} />
+            <Route path="/essay-review" element={<EssayReview />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
