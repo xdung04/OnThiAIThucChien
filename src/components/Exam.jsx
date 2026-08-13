@@ -163,25 +163,40 @@ function Options({ q, selected, onSelect }) {
   )
 }
 
+function isCorrect(q, user) {
+  if (q.type === 'short-answer') {
+    return q.acceptedAnswers.map((a) => String(a).toLowerCase()).includes(String(user || '').trim().toLowerCase())
+  }
+  return user === q.answerIndex
+}
+
+function fmtUser(q, user) {
+  if (q.type === 'short-answer') return user || '(trống)'
+  return user === undefined ? '(trống)' : `${LETTERS[user]}. ${q.options[user]}`
+}
+
+function fmtCorrect(q) {
+  if (q.type === 'short-answer') return q.acceptedAnswers.join(' / ')
+  return `${LETTERS[q.answerIndex]}. ${q.options[q.answerIndex]}`
+}
+
 function Results({ exam, answers, onRetry }) {
-  const score = exam.questions.reduce((acc, q) => {
-    const user = answers[q.id]
-    const correct = q.type === 'short-answer'
-      ? q.acceptedAnswers.map((a) => String(a).toLowerCase()).includes(String(user || '').trim().toLowerCase())
-      : user === q.answerIndex
-    return acc + (correct ? 1 : 0)
-  }, 0)
+  const [showWrong, setShowWrong] = useState(false)
+  const results = exam.questions.map((q, i) => ({ q, i, correct: isCorrect(q, answers[q.id]) }))
+  const score = results.filter((r) => r.correct).length
+  const wrongCount = results.length - score
 
   const modules = ['A', 'B', 'C', 'D'].map((m) => {
     const qs = exam.questions.filter((q) => q.module === m)
-    const correct = qs.filter((q) => {
-      const user = answers[q.id]
-      return q.type === 'short-answer'
-        ? q.acceptedAnswers.map((a) => String(a).toLowerCase()).includes(String(user || '').trim().toLowerCase())
-        : user === q.answerIndex
-    }).length
-    return { module: m, correct, total: qs.length, pct: qs.length ? Math.round((correct / qs.length) * 100) : 0 }
+    return {
+      module: m,
+      correct: qs.filter((q) => isCorrect(q, answers[q.id])).length,
+      total: qs.length,
+      pct: qs.length ? Math.round((qs.filter((q) => isCorrect(q, answers[q.id])).length / qs.length) * 100) : 0,
+    }
   })
+
+  const visible = showWrong ? results.filter((r) => !r.correct) : results
 
   return (
     <div>
@@ -206,6 +221,50 @@ function Results({ exam, answers, onRetry }) {
           <p className="mt-1">✅ Trên 60% — dấu hiệu tốt, bạn đã sẵn sàng.</p>
         )}
       </div>
+
+      <div className="card">
+        <div className="results-head">
+          <h2>📋 Rà soát câu hỏi</h2>
+          {wrongCount > 0 && (
+            <button className="btn btn-outline" onClick={() => setShowWrong((v) => !v)}>
+              {showWrong ? `Hiện tất cả (${results.length})` : `Chỉ xem câu sai (${wrongCount})`}
+            </button>
+          )}
+        </div>
+        {visible.length === 0 ? (
+          <p>🎉 Không có câu nào cần xem lại.</p>
+        ) : (
+          visible.map(({ q, i, correct }) => (
+            <div key={q.id} className="quiz-question">
+              <div className="quiz-q-top">
+                <span className="quiz-q-num">Q{i + 1} / {exam.questions.length}</span>
+                <span className="quiz-q-topic">Module {q.module} · {q.topic}</span>
+                <span className={`badge ${correct ? 'badge-pass' : 'badge-fail'}`}>
+                  {correct ? '✅ Đúng' : '❌ Sai'}
+                </span>
+              </div>
+              <p>{q.question}</p>
+              {q.code && <CodeBlock code={q.code} />}
+              <div className={`quiz-feedback ${correct ? 'correct' : 'wrong'}`}>
+                <div>
+                  <strong>Câu trả lời của bạn:</strong> {fmtUser(q, answers[q.id])}
+                </div>
+                {!correct && (
+                  <div>
+                    <strong>Đáp án đúng:</strong> {fmtCorrect(q)}
+                  </div>
+                )}
+                {q.explanation && (
+                  <div className="mt-1">
+                    <strong>Giải thích:</strong> {q.explanation}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
       <button className="btn btn-teal" onClick={onRetry}>🔁 Làm lại đề thi</button>
     </div>
   )

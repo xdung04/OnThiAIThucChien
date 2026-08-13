@@ -13,11 +13,11 @@ export default {
       question: 'Kết quả là gì?',
       code: `import numpy as np
 A = np.array([[1, 2], [3, 4]])
-B = np.array([[1, 0], [0, 1]])
+B = np.array([[0, 1], [1, 0]])
 print(np.dot(A, B))`,
-      options: ['[[1 2] [3 4]]', '[[1 0] [0 1]]', '[[2 1] [4 3]]', '[[0 0] [0 0]]'],
+      options: ['[[2 1] [4 3]]', '[[1 2] [3 4]]', '[[0 1] [1 0]]', '[[3 4] [1 2]]'],
       answerIndex: 0,
-      explanation: 'Nhân với ma trận đơn vị thì ma trận A không đổi.',
+      explanation: 'np.dot: [[1*0+2*1, 1*1+2*0], [3*0+4*1, 3*1+4*0]] = [[2,1],[4,3]]. B là ma trận hoán vị cột.',
     },
     {
       id: 'e1a2',
@@ -37,10 +37,10 @@ print(A.T.shape)`,
       module: 'A',
       type: 'multiple-choice',
       topic: 'Thống kê',
-      question: 'Trung bình cộng của [4, 8, 12] là bao nhiêu?',
-      options: ['6', '8', '10', '24'],
+      question: 'Bảng điểm của 3 môn: môn 1 hệ số 1 (điểm 7), môn 2 hệ số 2 (điểm 8), môn 3 hệ số 3 (điểm 9). Điểm trung bình có trọng số là bao nhiêu?',
+      options: ['8.0', '8.3', '8.5', '8.67'],
       answerIndex: 1,
-      explanation: 'Trung bình = (4+8+12)/3 = 24/3 = 8.',
+      explanation: 'TB = (7*1 + 8*2 + 9*3) / (1+2+3) = (7+16+27)/6 = 50/6 ≈ 8.3.',
     },
     {
       id: 'e1a4',
@@ -61,10 +61,10 @@ print(eigenvalues[1])`,
       module: 'A',
       type: 'multiple-choice',
       topic: 'Ma trận nghịch đảo',
-      question: 'A · A⁻¹ bằng ma trận nào?',
-      options: ['Ma trận không', 'Ma trận đơn vị', 'Chính A', 'Chính A⁻¹'],
+      question: 'Ma trận nào dưới đây KHÔNG có nghịch đảo (không khả nghịch)?',
+      options: ['[[2, 0], [0, 3]]', '[[1, 2], [2, 4]]', '[[1, 0], [0, 1]]', '[[0, 1], [1, 0]]'],
       answerIndex: 1,
-      explanation: 'Nhân một ma trận với nghịch đảo của nó sẽ cho ma trận đơn vị.',
+      explanation: 'det([[1,2],[2,4]]) = 1*4 − 2*2 = 0 → ma trận suy biến, không khả nghịch.',
     },
     {
       id: 'e1a6',
@@ -83,16 +83,12 @@ print(np.dot(u, v))`,
     {
       id: 'e1a7',
       module: 'A',
-      type: 'output-prediction',
-      topic: 'Ma trận',
-      question: 'Kết quả là gì?',
-      code: `import numpy as np
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[10, 20], [30, 40]])
-print(A + B)`,
-      options: ['[[11 22] [33 44]]', '[[10 40] [90 160]]', '[[1 2] [3 4]]', '[[11 20] [30 44]]'],
-      answerIndex: 0,
-      explanation: 'Phép cộng ma trận cộng từng phần tử tương ứng.',
+      type: 'multiple-choice',
+      topic: 'Thống kê',
+      question: 'Một bộ dữ liệu có các giá trị [10, 12, 12, 13, 18]. Giá trị khác biệt (outlier) 18 bị ảnh hưởng đến thống kê nào nhiều nhất?',
+      options: ['Trung vị bị kéo tăng mạnh', 'Trung bình cộng bị kéo tăng', 'Mode bị thay đổi hoàn toàn', 'Không ảnh hưởng thống kê nào'],
+      answerIndex: 1,
+      explanation: 'Trung bình cộng nhạy cảm với outlier (kéo lên). Trung vị và mode bền vững hơn với giá trị ngoại lai.',
     },
     {
       id: 'e1a8',
@@ -138,22 +134,29 @@ print(eigenvectors[:, 0])`,
     {
       id: 'e1a11',
       module: 'A',
-      type: 'multiple-choice',
-      topic: 'Thống kê',
-      question: 'Trung vị của [1, 3, 5, 7, 9] là bao nhiêu?',
-      options: ['3', '5', '7', '25'],
-      answerIndex: 1,
-      explanation: 'Giá trị giữa của 5 số đã sắp xếp là 5.',
+      type: 'output-prediction',
+      topic: 'Vector',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+scores = np.array([70, 85, 60, 95])
+centered = scores - scores.mean()
+print(round(centered[1], 1))`,
+      options: ['7.5', '15.0', '-17.5', '0.0'],
+      answerIndex: 0,
+      explanation: 'mean = (70+85+60+95)/4 = 77.5. centered[1] = 85 − 77.5 = 7.5.',
     },
     {
       id: 'e1a12',
       module: 'A',
-      type: 'multiple-choice',
-      topic: 'Thống kê',
-      question: 'Mode (giá trị xuất hiện nhiều nhất) của [1, 2, 2, 3, 3, 3, 4] là gì?',
-      options: ['2', '3', '4', '1'],
-      answerIndex: 1,
-      explanation: 'Số 3 xuất hiện nhiều nhất (3 lần).',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[3, 1], [2, 4]])
+print(np.linalg.det(A))`,
+      options: ['10.0', '5.0', '14.0', '7.0'],
+      answerIndex: 0,
+      explanation: 'det = 3*4 − 1*2 = 12 − 2 = 10.',
     },
     {
       id: 'e1a13',
@@ -162,11 +165,11 @@ print(eigenvectors[:, 0])`,
       topic: 'Vector',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([1, 2, 3, 4, 5])
-print(a.shape)`,
-      options: ['(1, 5)', '(5,)', '(5, 1)', '5'],
-      answerIndex: 1,
-      explanation: 'Mảng 1 chiều 5 phần tử có shape là (5,).',
+a = np.array([3, 4])
+print(np.linalg.norm(a))`,
+      options: ['5.0', '7.0', '12.0', '25.0'],
+      answerIndex: 0,
+      explanation: 'Chuẩn (độ dài) = √(3² + 4²) = √25 = 5.',
     },
     {
       id: 'e1a14',
@@ -184,38 +187,44 @@ print(A.T[1, 0])`,
     {
       id: 'e1a15',
       module: 'A',
-      type: 'multiple-choice',
-      topic: 'Thống kê',
-      question: 'Tính phương sai (variance) của [2, 4, 6]:',
-      options: ['2', '8/3 ≈ 2.67', '4', '16'],
-      answerIndex: 1,
-      explanation: 'Trung bình = 4. Độ lệch: -2, 0, 2 → bình phương: 4, 0, 4 → (4+0+4)/3 = 8/3.',
+      type: 'output-prediction',
+      topic: 'Ma trận',
+      question: 'Kết quả là gì?',
+      code: `import numpy as np
+A = np.array([[2, 1], [1, 3]])
+b = np.array([5, 7])
+print(np.linalg.solve(A, b)[0])`,
+      options: ['1.6', '1.8', '2.0', '2.4'],
+      answerIndex: 0,
+      explanation: 'Giải hệ 2x + y = 5; x + 3y = 7 → từ y = 5 − 2x thay vào: x + 3(5−2x) = 7 → x + 15 − 6x = 7 → −5x = −8 → x = 1.6.',
     },
     // ===== Module B (21) — Lập trình & Xử lý dữ liệu =====
     {
       id: 'e1b1',
       module: 'B',
       type: 'output-prediction',
-      topic: 'Python',
+      topic: 'NumPy',
       question: 'Kết quả là gì?',
-      code: `x = 9
-y = 2
-print(x // y)`,
-      options: ['4.5', '4', '1', '18'],
+      code: `import numpy as np
+a = np.array([5, 10, 15, 20])
+count = (a > 12).sum()
+print(count)`,
+      options: ['1', '2', '3', '4'],
       answerIndex: 1,
-      explanation: '9 // 2 = 4 (phép chia lấy phần nguyên).',
+      explanation: 'Boolean mask a > 12 → [False, False, True, True]. sum() đếm số True = 2.',
     },
     {
       id: 'e1b2',
       module: 'B',
       type: 'output-prediction',
-      topic: 'Python',
+      topic: 'NumPy',
       question: 'Kết quả là gì?',
-      code: `for i in range(2):
-    print(i)`,
-      options: ['0 1', '1 2', '0 1 2', '2 1'],
+      code: `import numpy as np
+a = np.array([[1, 2], [3, 4]])
+print(a.sum(axis=0))`,
+      options: ['[4 6]', '[3 7]', '[2 6]', '[1 2 3 4]'],
       answerIndex: 0,
-      explanation: 'range(2) cho 0 và 1.',
+      explanation: 'axis=0 tính tổng theo từng CỘT: cột 0 = 1+3 = 4, cột 1 = 2+4 = 6 → [4 6].',
     },
     {
       id: 'e1b3',
@@ -224,11 +233,11 @@ print(x // y)`,
       topic: 'NumPy',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([3, 1, 4, 2])
-print(a.argmax())`,
-      options: ['4', '2', '3', '1'],
-      answerIndex: 1,
-      explanation: 'argmax trả về vị trí (index) của giá trị lớn nhất. Số 4 ở index 2.',
+scores = np.array([60, 85, 70, 95])
+print(np.where(scores >= 80, "Gioi", "Dat"))`,
+      options: ["['Dat' 'Gioi' 'Dat' 'Gioi']", "['Dat' 'Dat' 'Dat' 'Dat']", "['Gioi' 'Gioi' 'Gioi' 'Gioi']", "['Dat' 'Gioi' 'Gioi' 'Gioi']"],
+      answerIndex: 0,
+      explanation: 'np.where(điều kiện, giá trị đúng, giá trị sai): 60→Dat, 85→Gioi, 70→Dat, 95→Gioi.',
     },
     {
       id: 'e1b4',
@@ -237,12 +246,12 @@ print(a.argmax())`,
       topic: 'NumPy',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([1, 2, 3])
-b = np.array([4, 5, 6])
-print(np.dot(a, b))`,
-      options: ['32', '24', '18', '21'],
+w = np.array([0.5, 0.3, 0.2])
+s = np.array([8, 10, 6])
+print(np.dot(w, s))`,
+      options: ['8.2', '7.8', '8.0', '24'],
       answerIndex: 0,
-      explanation: 'np.dot = 1*4 + 2*5 + 3*6 = 4+10+18 = 32.',
+      explanation: 'Điểm trung bình có trọng số = 0.5*8 + 0.3*10 + 0.2*6 = 4 + 3 + 1.2 = 8.2.',
     },
     {
       id: 'e1b5',
@@ -251,11 +260,11 @@ print(np.dot(a, b))`,
       topic: 'Pandas',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
-print(df.shape)`,
-      options: ['(2, 3)', '(3, 2)', '(3, 3)', '(2, 2)'],
-      answerIndex: 1,
-      explanation: 'df có 3 hàng, 2 cột → shape (3, 2).',
+df = pd.DataFrame({"dept": ["IT", "Sales", "IT", "Sales"], "salary": [1000, 800, 1200, 900]})
+print(df.groupby("dept")["salary"].mean())`,
+      options: ['IT 1100, Sales 850', 'IT 2200, Sales 1700', 'IT 1000, Sales 800', 'IT 1200, Sales 900'],
+      answerIndex: 0,
+      explanation: 'IT = (1000+1200)/2 = 1100. Sales = (800+900)/2 = 850.',
     },
     {
       id: 'e1b6',
@@ -264,11 +273,12 @@ print(df.shape)`,
       topic: 'Pandas',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
-print(df.iloc[2]["name"])`,
-      options: ['Minh', 'Lan', 'Huy', 'Error'],
-      answerIndex: 2,
-      explanation: 'iloc[2] là hàng ở vị trí 2 (Huy).',
+a = pd.DataFrame({"id": [1, 2], "name": ["Minh", "Lan"]})
+b = pd.DataFrame({"id": [1, 2], "salary": [500, 700]})
+print(pd.merge(a, b, on="id").shape)`,
+      options: ['(2, 3)', '(2, 4)', '(4, 2)', '(4, 4)'],
+      answerIndex: 0,
+      explanation: 'merge theo cột id khớp 2 bảng, cộng cột → 2 hàng, 3 cột: (2, 3).',
     },
     {
       id: 'e1b7',
@@ -277,11 +287,11 @@ print(df.iloc[2]["name"])`,
       topic: 'Xử lý dữ liệu',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
-print(df[df["age"] > 24].shape)`,
-      options: ['(3, 2)', '(2, 2)', '(1, 2)', '(2, 1)'],
+df = pd.DataFrame({"age": [25, 30, 22], "score": [70, 90, 60]})
+print(df[(df["age"] > 24) & (df["score"] >= 80)].shape)`,
+      options: ['(3, 2)', '(1, 2)', '(2, 2)', '(0, 2)'],
       answerIndex: 1,
-      explanation: 'Lọc giữ lại tuổi > 24: Minh (25), Lan (30) → 2 hàng.',
+      explanation: 'Điều kiện tuổi > 24 VÀ điểm >= 80: chỉ có Lan (30, 90). Một hàng → (1, 2).',
     },
     {
       id: 'e1b8',
@@ -289,11 +299,11 @@ print(df[df["age"] > 24].shape)`,
       type: 'output-prediction',
       topic: 'Python',
       question: 'Kết quả là gì?',
-      code: `fruits = ["apple", "banana", "cherry"]
-print(fruits[0])`,
-      options: ['apple', 'banana', 'cherry', 'Error'],
-      answerIndex: 0,
-      explanation: 'Chỉ số bắt đầu từ 0, nên fruits[0] = "apple".',
+      code: `names = ["Minh", "Lan", "Huy"]
+print([n.upper() for n in names if len(n) == 3])`,
+      options: ["['MINH', 'LAN', 'HUY']", "['LAN', 'HUY']", "['MINH']", "['Lan', 'Huy']"],
+      answerIndex: 1,
+      explanation: 'List comprehension lọc tên có 3 ký tự (Lan, Huy) rồi viết hoa → ["LAN", "HUY"].',
     },
     {
       id: 'e1b9',
@@ -301,14 +311,12 @@ print(fruits[0])`,
       type: 'output-prediction',
       topic: 'Python',
       question: 'Kết quả là gì?',
-      code: `score = 75
-if score >= 60:
-    print("Pass")
-else:
-    print("Fail")`,
-      options: ['Pass', 'Fail', 'Error', 'Không in gì'],
+      code: `prices = [100, 250, 400]
+taxed = [p * 1.1 for p in prices if p >= 200]
+print(taxed)`,
+      options: ['[275.0, 440.0]', '[110.0, 275.0, 440.0]', '[275, 440]', '[110, 275, 440]'],
       answerIndex: 0,
-      explanation: '75 >= 60 nên nhánh if chạy, in "Pass".',
+      explanation: 'Lọc giá >= 200 (250, 400) rồi nhân 1.1 → [275.0, 440.0].',
     },
     {
       id: 'e1b10',
@@ -317,11 +325,12 @@ else:
       topic: 'NumPy',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([10, 20, 30, 40])
-print(a[1:3])`,
-      options: ['[10 20]', '[20 30]', '[30 40]', '[10 20 30]'],
-      answerIndex: 1,
-      explanation: 'a[1:3] lấy các phần tử từ index 1 đến 2 → [20 30].',
+a = np.array([2, 4, 6, 8])
+b = a * 2 + 1
+print(b)`,
+      options: ['[5 9 13 17]', '[4 8 12 16]', '[3 5 7 9]', '[2 4 6 8]'],
+      answerIndex: 0,
+      explanation: 'Broadcast: mỗi phần tử nhân 2 rồi cộng 1 → [2*2+1, 4*2+1, 6*2+1, 8*2+1] = [5 9 13 17].',
     },
     {
       id: 'e1b11',
@@ -330,14 +339,12 @@ print(a[1:3])`,
       topic: 'NumPy',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([1, 2, 3, 4, 5, 6])
-b = a.reshape(2, 3)
-print(b[1, 2])`,
-      options: ['3', '4', '5', '6'],
-      answerIndex: 3,
-      explanation: 'Sau reshape, b[1,2] = 6 (hàng 1, cột 2).',
+a = np.array([[1, 2, 3], [4, 5, 6]])
+print(a.reshape(3, 2).tolist())`,
+      options: ['[[1, 2], [3, 4], [5, 6]]', '[[1, 2, 3], [4, 5, 6]]', '[[1, 4], [2, 5], [3, 6]]', '[[1, 2], [4, 5]]'],
+      answerIndex: 0,
+      explanation: 'reshape(3,2) xếp lại theo hàng ưu tiên: [[1,2],[3,4],[5,6]].',
     },
-
     {
       id: 'e1b12',
       module: 'B',
@@ -345,11 +352,11 @@ print(b[1, 2])`,
       topic: 'Pandas',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"city": ["HN", "HCM", "HN"], "sales": [10, 20, 30]})
-print(df.groupby("city")["sales"].sum())`,
-      options: ['HN 40, HCM 20', 'HN 30, HCM 20', 'HN 10, HCM 20', 'HN 20, HCM 30'],
+df = pd.DataFrame({"dept": ["IT", "IT", "Sales"], "salary": [1000, 1200, 900]})
+print(df.groupby("dept")["salary"].max())`,
+      options: ['IT 1200, Sales 900', 'IT 2200, Sales 900', 'IT 1000, Sales 900', 'IT 1200, Sales 1000'],
       answerIndex: 0,
-      explanation: 'HN = 10 + 30 = 40. HCM = 20.',
+      explanation: 'groupby dept lấy max: IT = max(1000,1200) = 1200; Sales = 900.',
     },
     {
       id: 'e1b13',
@@ -358,11 +365,11 @@ print(df.groupby("city")["sales"].sum())`,
       topic: 'Xử lý dữ liệu',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"name": ["Minh", "Minh", "Lan"], "age": [25, 25, 30]})
+df = pd.DataFrame({"name": ["Minh", "Minh", "Lan"], "dept": ["IT", "IT", "Sales"]})
 print(df.drop_duplicates().shape)`,
       options: ['(3, 2)', '(2, 2)', '(1, 2)', '(2, 1)'],
       answerIndex: 1,
-      explanation: 'drop_duplicates() bỏ hàng Minh trùng → còn 2 hàng.',
+      explanation: 'Hai hàng Minh đều trùng (cùng name, dept) → bỏ 1, còn 2 hàng.',
     },
     {
       id: 'e1b14',
@@ -370,12 +377,11 @@ print(df.drop_duplicates().shape)`,
       type: 'output-prediction',
       topic: 'Python',
       question: 'Kết quả là gì?',
-      code: `x = 7
-y = 2
-print(x % y)`,
-      options: ['3.5', '3', '1', '14'],
-      answerIndex: 2,
-      explanation: '7 % 2 = 1 (phần dư).',
+      code: `words = ["cat", "dog"]
+print({w: len(w) for w in words})`,
+      options: ["{'cat': 3, 'dog': 3}", "{'cat': 'cat', 'dog': 'dog'}", "{'cat': 1, 'dog': 1}", "['cat', 'dog']"],
+      answerIndex: 0,
+      explanation: 'Dict comprehension: mỗi từ là key, độ dài là value → cat:3, dog:3.',
     },
     {
       id: 'e1b15',
@@ -383,13 +389,13 @@ print(x % y)`,
       type: 'output-prediction',
       topic: 'Python',
       question: 'Kết quả là gì?',
-      code: `def add(a, b):
-    return a + b
+      code: `def classify(score):
+    return "Pass" if score >= 60 else "Fail"
 
-print(add(3, 4))`,
-      options: ['34', '7', '12', 'Error'],
-      answerIndex: 1,
-      explanation: 'Hàm trả về 3 + 4 = 7.',
+print(classify(85), classify(40))`,
+      options: ['Pass Fail', 'Fail Pass', 'Pass Pass', 'Fail Fail'],
+      answerIndex: 0,
+      explanation: '85 >= 60 → Pass; 40 < 60 → Fail. Kết quả: Pass Fail.',
     },
     {
       id: 'e1b16',
@@ -398,11 +404,11 @@ print(add(3, 4))`,
       topic: 'NumPy',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([[1, 2], [3, 4]])
-print(a[0, 1])`,
-      options: ['1', '2', '3', '4'],
-      answerIndex: 1,
-      explanation: 'a[0,1] là hàng 0, cột 1 = 2.',
+scores = np.array([[50, 80], [90, 60]])
+print(scores.max(axis=1))`,
+      options: ['[80 90]', '[50 90]', '[80 60]', '[90 80]'],
+      answerIndex: 0,
+      explanation: 'axis=1 lấy max theo từng HÀNG: hàng 0 max = 80, hàng 1 max = 90 → [80 90].',
     },
     {
       id: 'e1b17',
@@ -411,11 +417,12 @@ print(a[0, 1])`,
       topic: 'NumPy',
       question: 'Kết quả là gì?',
       code: `import numpy as np
-a = np.array([4, 8, 12])
-print(a.mean())`,
-      options: ['4', '8', '12', '24'],
-      answerIndex: 1,
-      explanation: 'mean = (4+8+12)/3 = 8.',
+a = np.array([2, 4, 8])
+b = np.array([10, 12, 14])
+print(b - a)`,
+      options: ['[8 8 6]', '[12 16 22]', '[8 10 8]', '[5 3 1.75]'],
+      answerIndex: 0,
+      explanation: 'Residual = b − a = [10-2, 12-4, 14-8] = [8, 8, 6].',
     },
     {
       id: 'e1b18',
@@ -424,11 +431,11 @@ print(a.mean())`,
       topic: 'Pandas',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "age": [25, 30, 22]})
-print(df.sort_values("age").iloc[0]["name"])`,
+df = pd.DataFrame({"name": ["Minh", "Lan", "Huy"], "score": [70, 90, 60]})
+print(df.sort_values("score", ascending=False).iloc[0]["name"])`,
       options: ['Minh', 'Lan', 'Huy', 'Error'],
-      answerIndex: 2,
-      explanation: 'Sắp xếp tuổi tăng dần: 22 (Huy) đứng đầu → tên "Huy".',
+      answerIndex: 1,
+      explanation: 'Sắp xếp điểm giảm dần: 90 (Lan) đứng đầu → tên "Lan".',
     },
     {
       id: 'e1b19',
@@ -437,11 +444,11 @@ print(df.sort_values("age").iloc[0]["name"])`,
       topic: 'Xử lý dữ liệu',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"x": [1, None, 3]})
+df = pd.DataFrame({"x": [1, None, 3], "y": [5, 6, None]})
 print(df.isna().sum().sum())`,
-      options: ['0', '1', '2', '3'],
+      options: ['1', '2', '3', '0'],
       answerIndex: 1,
-      explanation: 'Có 1 giá trị None (NaN) → đếm được 1.',
+      explanation: 'Có 2 giá trị thiếu: None ở cột x (hàng 1) và cột y (hàng 2) → 2.',
     },
     {
       id: 'e1b20',
@@ -450,11 +457,11 @@ print(df.isna().sum().sum())`,
       topic: 'Xử lý dữ liệu',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-df = pd.DataFrame({"city": ["HN", "HCM", "HN"]})
-print(df["city"].value_counts().loc["HN"])`,
-      options: ['1', '2', '3', 'Error'],
-      answerIndex: 1,
-      explanation: 'value_counts đếm số lần mỗi thành phố. HN xuất hiện 2 lần.',
+df = pd.DataFrame({"city": ["HN", "HCM", "DN"], "sales": [30, 40, 50]})
+print(df["sales"].sum())`,
+      options: ['90', '120', '100', '30'],
+      answerIndex: 0,
+      explanation: 'Tổng doanh thu = 30 + 40 + 50 = 120.',
     },
     {
       id: 'e1b21',
@@ -463,11 +470,11 @@ print(df["city"].value_counts().loc["HN"])`,
       topic: 'Pandas',
       question: 'Kết quả là gì?',
       code: `import pandas as pd
-s = pd.Series([1, 2, 3, 4])
-print(s.iloc[2])`,
-      options: ['1', '2', '3', '4'],
-      answerIndex: 2,
-      explanation: 'iloc[2] lấy phần tử vị trí 2 của Series = 3.',
+df = pd.DataFrame({"score": [70, 85, 60, 95]})
+print(df["score"].quantile(0.5))`,
+      options: ['75.0', '77.5', '70.0', '85.0'],
+      answerIndex: 1,
+      explanation: 'quantile(0.5) là trung vị của [60,70,85,95] = (70+85)/2 = 77.5.',
     },
 
     // ===== Module C (15) — AI Knowledge & Product Thinking =====

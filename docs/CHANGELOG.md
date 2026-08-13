@@ -2,6 +2,24 @@
 
 All notable project updates are tracked here.
 
+## [0.6.0] — 2026-08-13 — Rà soát câu sai trong đề thi + Nâng độ khó Module A–C
+
+### Added
+- **Màn hình kết quả đề thi giờ hiển thị "Rà soát câu hỏi"** (`src/components/Exam.jsx`): sau khi nộp bài, liệt kê lần lượt từng câu với badge ✅ Đúng / ❌ Sai, câu trả lời của người dùng, đáp án đúng (với câu sai) và phần **Giải thích** (`q.explanation`) cho mọi câu.
+- **Nút lọc "Chỉ xem câu sai (n)" / "Hiện tất cả"** trên màn hình kết quả để ôn nhanh phần yếu.
+- Tách logic chấm điểm chung (`isCorrect`, `fmtUser`, `fmtCorrect`) dùng cho cả tổng điểm, phân tích module và rà soát câu hỏi — xử lý cả `multiple-choice`/`output-prediction` (so `answerIndex`) và `short-answer` (so `acceptedAnswers`).
+- CSS mới: `.results-head`, `.badge-pass`, `.badge-fail` (`src/styles/globals.css`).
+
+### Changed
+- **Nâng độ khó Module A–C của cả 3 đề thi thử** (`src/data/exams/mock-exam-1/2/3.js`), giữ nguyên cấu trúc 60 câu/90 phút, A=15 · B=21 · C=15 · D=9. Module D giữ nguyên.
+  - **Module A** (Toán & Ma trận): bỏ các câu 1 bước quá dễ; bổ sung trung bình có trọng số, outlier/trung vị, ma trận suy biến không khả nghịch (det), `np.linalg.det`, `np.linalg.norm`, `np.linalg.solve` hệ phương trình, normalize/center dữ liệu.
+  - **Module B** (Lập trình & Xử lý dữ liệu): bỏ các câu `9//2`, `range`, `add(3,4)`, `fruits[0]`; bổ sung boolean mask + `np.where`, `sum(axis=0)`, `max/mean` theo axis, `np.dot` trọng số, `groupby` mean/max/sum, `merge`, filter 2 điều kiện, list/dict comprehension, `a[::-1]`, weighted dot, `fillna`, `concatenate`.
+  - **Module C** (AI & Product): giữ nền hồi quy/sigmoid/threshold hiện có (đã sâu từ v0.3.x).
+- Mọi câu thay mới đều có **giải thích chuẩn** (phục vụ tính năng rà soát câu sai).
+
+### Docs
+- `docs/DECISION_LOG.md` — ghi quyết định tính năng rà soát câu sai + nâng độ khó A–C.
+
 ## [0.5.0] — 2026-08-12 — Tab "Ôn tập tự luận" (NumPy · Pandas · MVP)
 
 ### Added

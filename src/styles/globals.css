@@ -362,6 +362,17 @@ a:hover {
 .badge-difficulty { color: var(--warning); }
 .badge-importance { color: var(--danger); }
 .badge-tip { color: var(--teal); }
+.badge-pass { color: var(--success); }
+.badge-fail { color: var(--danger); }
+
+.results-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
 
 /* ---------- Lesson sections ---------- */
 
